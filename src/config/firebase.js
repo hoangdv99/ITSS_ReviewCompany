@@ -13,3 +13,19 @@ const app = firebase.initializeApp({
 
 export const auth = app.auth();
 export const firestore = app.firestore();
+
+//loicd - get all companies
+export const getCompanies = async () => {
+    try{
+        const model = await firestore
+            .collection("companies")
+            .get();
+        const results = model.docs.map(
+            (doc) => ({...doc.data(), id: doc.id})
+        );
+        return results;
+    }catch (err){
+        console.log(err);
+        return [];
+    }
+}
