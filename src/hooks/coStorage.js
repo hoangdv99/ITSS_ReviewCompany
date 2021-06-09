@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {addCompany, getCompanies} from '../config/firebase';
+import {addCompany, getCompanies, removeCompany, updateCompany} from '../config/firebase';
 
 function useCoStorage() {
     const [items, setItems] = useState([]);
@@ -18,7 +18,19 @@ function useCoStorage() {
         setItems([...items, item]);
     }
 
-    return [items, addItem];
+    const updateItem = async (item) => {
+        await updateCompany(item);
+        const _items = await getCompanies();
+        setItems(_items);
+    }
+
+    const removeItem = async (item) => {
+       await removeCompany(item);
+       const _items = items.filter((x) => x.id !== item.id);
+       setItems(_items);
+    }
+
+    return [items, addItem, updateItem, removeItem];
 }
 
 export default useCoStorage;

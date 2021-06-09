@@ -52,8 +52,6 @@ export default function ModalCompany(props) {
   const classes = useStyles();
   const [company, setCompany] = useState(props.company);
   const [open, setOpen] = React.useState(false);
-  // const [type, setType] = React.useState([company.type]);
-  const [item, setItem] = React.useState(company);
 
   const handleOpen = () => {
     setOpen(true);
@@ -85,7 +83,8 @@ export default function ModalCompany(props) {
   }
 
   const handleSumit = () => {
-    setItem(props.onSubmit(company));
+    props.title === "New" ? props.onAddSubmit(company) : props.onUpdate(company);
+    setCompany({});
     setOpen(false);
   }
 

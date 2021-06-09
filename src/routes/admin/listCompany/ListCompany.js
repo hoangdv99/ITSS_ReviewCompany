@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ListCompany() {
     const classes = useStyles();
 
-    const [companies, addCompany] = useCoStorage();
+    const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
     
     const company = {
         name: "",
@@ -46,8 +46,12 @@ export default function ListCompany() {
         console.info('You clicked a breadcrumb.');
     }
 
-    const handleAdd = item => {
+    const handleAdd = (item) => {
         addCompany(item);
+    }
+
+    const hanldeRemove = (item) => {
+        removeCompany(item);
     }
 
     return (
@@ -66,13 +70,13 @@ export default function ListCompany() {
                         </Breadcrumbs>
                     </Grid>
                     <Grid item xs={4} className={classes.addBtn}>
-                        <ModalCompany company={company} title="New" onSubmit={handleAdd}/>
+                        <ModalCompany company={company} title="New" onAddSubmit={handleAdd}/>
                     </Grid>
                 </Grid>
 
                 <Grid container className={classes.oneRow}>
-                        {companies.map((post) => (
-                            <Company key={post.title} post={post}/>
+                        {companies.map((co) => (
+                            <Company key={co.title} company={co} onRemove={hanldeRemove(co)} onUpdate={updateCompany}/>
                         ))}
                 </Grid>
             </Container>

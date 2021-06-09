@@ -1,5 +1,4 @@
 import React from 'react';
-import {useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {Typography, Grid, Card, CardActionArea, CardContent, CardActions, Button, CardMedia} from '@material-ui/core';
@@ -34,19 +33,9 @@ const useStyles = makeStyles({
     }
 });
 
-export default function FeaturedPost(props) {
+export default function Company(props) {
   const classes = useStyles();
-  const { post } = props;
-
-  const [company, setCompany] = useState({
-    name: 'test',
-    address: 'test',
-    site: 'test',
-    type: 'test',
-    rating: 0,
-    logo: 'https://i.picsum.photos/id/654/200/300.jpg?hmac=JhhoLGzzNeSmL5tgcWbz2N4DiYmrpTPsjKCw4MeIcps',
-    is_active: 1,
-  });
+  const company  = props.company;
 
   const totalStar = [0,0,0,0,0];
   const fillStar = (stars) => {
@@ -55,18 +44,19 @@ export default function FeaturedPost(props) {
     }
   }
   const resetStar = () => {
-      totalStar.map(i=>0);
+    totalStar.map(i=>0);
   }
+
   return (
     <Grid item xs={12} className={classes.oneCompany}>
         <Card className={classes.card}>
             <CardActionArea component="a" href="#" className={classes.cardActionArea}>
-                <CardMedia className={classes.cardMedia} image={post.logo} title={post.logoText} />
+                <CardMedia className={classes.cardMedia} image={company.logo} title={company.logo + "-text"} />
                 <CardContent className={classes.companyDetails}>
                     <Typography className={classes.title} component="h2" variant="h5">
-                    {post.name}
+                    {company.name}
                     </Typography>
-                    {fillStar(post.rating)}
+                    {fillStar(company.rating)}
                     {totalStar.map(
                         i=>(
                             i == 1? <GradeIcon style={{color:'yellow'}}/>:<StarOutlineIcon/>
@@ -74,17 +64,17 @@ export default function FeaturedPost(props) {
                     )}
                     {resetStar()}
                     <Typography variant="subtitle1" color="textSecondary">
-                        {post.type}
+                        {company.type}
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                        {post.address}
+                        {company.address}
                     </Typography>
                 </CardContent>
             </CardActionArea>
 
             <CardActions>
-                <ModalCompany company={company} title="Modify"/>
-                <Button variant="contained" color="secondary" size="small">
+                <ModalCompany company={company} title="Modify" onUpdate={props.onUpdate}/>
+                <Button variant="contained" color="secondary" size="small" onClick={props.onRemove}>
                     <RemoveIcon/>
                     Delete
                 </Button>
@@ -94,6 +84,6 @@ export default function FeaturedPost(props) {
   );
 }
 
-FeaturedPost.propTypes = {
-  post: PropTypes.object,
+Company.propTypes = {
+  item: PropTypes.object,
 };
