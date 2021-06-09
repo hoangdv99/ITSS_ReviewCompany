@@ -1,15 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/AddCircleOutline';
+
+import {CssBaseline, Container, Breadcrumbs, Link, Grid, Typography} from '@material-ui/core';
 
 import Header from '../../../components/Admin/Header';
+import ModalCompany from '../../../components/Admin/ModalCompany';
 import Company from '../../../components/Admin/Company';
 import Footer from '../../../components/Company/Footer';
 
@@ -31,37 +26,28 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const data = [
-    {
-        name: 'Samsung',
-        address: 'Seoul, Korea',
-        rating: 4,
-        type: 'technology',
-        logo: 'https://source.unsplash.com/random',
-        logoText: 'Image Text',
-    },
-    {
-        name: 'Toyota',
-        address: 'Tokyo, Japan',
-        rating: 5,
-        type: 'car',
-        logo: 'https://source.unsplash.com/random',
-        logoText: 'Image Text',
-    },
-];
-
 export default function ListCompany() {
     const classes = useStyles();
 
-    const [companies] = useCoStorage();
+    const [companies, addCompany] = useCoStorage();
+    
+    const company = {
+        name: "",
+        address: "",
+        site: "",
+        type: "",
+        rating: 0,
+        logo: "",
+        is_active: 1,
+    }
 
     const handleClick = (event) => {
         event.preventDefault();
         console.info('You clicked a breadcrumb.');
     }
 
-    const handleAdd = (event) => {
-        console.info('You clicked a breadcrumb.');
+    const handleAdd = item => {
+        addCompany(item);
     }
 
     return (
@@ -80,10 +66,7 @@ export default function ListCompany() {
                         </Breadcrumbs>
                     </Grid>
                     <Grid item xs={4} className={classes.addBtn}>
-                        <Button variant="contained" color="primary" aria-haspopup="true" onClick={handleAdd}>
-                            <AddIcon/>
-                            Add new Company
-                        </Button>
+                        <ModalCompany company={company} title="New" onSubmit={handleAdd}/>
                     </Grid>
                 </Grid>
 

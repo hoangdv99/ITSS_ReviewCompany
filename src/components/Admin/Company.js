@@ -1,18 +1,13 @@
 import React from 'react';
+import {useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
-import CardMedia from '@material-ui/core/CardMedia';
+import {Typography, Grid, Card, CardActionArea, CardContent, CardActions, Button, CardMedia} from '@material-ui/core';
 import GradeIcon from "@material-ui/icons/Grade";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import RemoveIcon from '@material-ui/icons/DeleteOutline';
-import AddIcon from '@material-ui/icons/EditOutlined';
+
+import ModalCompany from './ModalCompany';
 
 const useStyles = makeStyles({
     card: {
@@ -42,6 +37,16 @@ const useStyles = makeStyles({
 export default function FeaturedPost(props) {
   const classes = useStyles();
   const { post } = props;
+
+  const [company, setCompany] = useState({
+    name: 'test',
+    address: 'test',
+    site: 'test',
+    type: 'test',
+    rating: 0,
+    logo: 'https://i.picsum.photos/id/654/200/300.jpg?hmac=JhhoLGzzNeSmL5tgcWbz2N4DiYmrpTPsjKCw4MeIcps',
+    is_active: 1,
+  });
 
   const totalStar = [0,0,0,0,0];
   const fillStar = (stars) => {
@@ -78,10 +83,7 @@ export default function FeaturedPost(props) {
             </CardActionArea>
 
             <CardActions>
-                <Button variant="contained" color="primary" size="small">
-                    <AddIcon/>
-                    Edit
-                </Button>
+                <ModalCompany company={company} title="Modify"/>
                 <Button variant="contained" color="secondary" size="small">
                     <RemoveIcon/>
                     Delete
