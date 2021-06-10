@@ -1,0 +1,68 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-inner {
+  position: relative;
+  width: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.popup-inner .popup-header {
+  position: relative;
+  background-color: antiquewhite;
+  padding: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popup-inner .title {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.popup-inner .popup-body {
+  padding: 10px;
+}
+
+.popup-body .input-field {
+  margin-bottom: 10px;
+}
+
+.popup-body .label {
+  width: 30%;
+  text-align: left;
+  display: inline-block;
+}
+
+.popup-body .input {
+  width: 70%;
+  display: inline-block;
+}
+
+.popup-body .btn-group {
+  text-align: center;
+}
+
+.popup-body .btn-group .btn-add {
+  margin: auto 10px;
+  width: 20%;
+}
+
+.popup-body .btn-group .btn-cancel {
+  margin: auto 10px;
+  width: 20%;
+}
