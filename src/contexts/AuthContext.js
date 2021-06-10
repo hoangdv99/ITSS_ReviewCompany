@@ -15,7 +15,11 @@ export function AuthProvider({ children }) {
     }
 
     function signIn(email, password) {
-        auth.signInWithEmailAndPassword(email, password)
+        return auth.signInWithEmailAndPassword(email, password)
+    }
+
+    function signOut() {
+        return auth.signOut();
     }
 
     useEffect(() => {
@@ -30,7 +34,8 @@ export function AuthProvider({ children }) {
     const value = {
         currentUser,
         signUp,
-        signIn
+        signIn,
+        signOut,
     }
 
     return (

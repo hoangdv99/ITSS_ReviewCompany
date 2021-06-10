@@ -1,10 +1,14 @@
-import './App.css';
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import signUp from './routes/signUp/SignUp';
-import signIn from './routes/signIn/SignIn';
-import AdminList from './routes/adminList/AdminList';
-import RequestAddCompanyList from './routes/requestAddCompanyList/RequestAddCompanyList';
+
+import signIn from './routes/admin/signIn/SignIn';
+import AdminList from './routes/admin/adminList/AdminList';
+import RequestAddCompanyList from './routes/admin/requestAddCompanyList/RequestAddCompanyList';
 import { AuthProvider } from './contexts/AuthContext';
+import ListCompany from "./routes/listCompany/ListCompany";
+import RequestAddCompany from "./routes/requestAddCompany/RequestAddCompany";
+
+import './App.css';
 
 function App() {
   return (
@@ -14,10 +18,14 @@ function App() {
           <Switch>
             {/* example route */}
             {/* <Route exact path="/login" component={Login} /> */}
-            <Route exact path="/signup" component={signUp} />
+            {/* master */}
+            <Route exact path="/" component={ListCompany} />
+            <Route exact path="/companies" component={ListCompany} />
+            <Route exact path="/addCompany" component={RequestAddCompany} />
+            {/* thang */}
             <Route exact path="/signin" component={signIn} />
-            <Route exact path="/adminlist" component={AdminList} />
-            <Route exact path="/signin" component={RequestAddCompanyList} />
+            <Route exact path="/admin-list" component={AdminList} />
+            <Route exact path="/request-list" component={RequestAddCompanyList} />
           </Switch>
         </AuthProvider>
       </Router>

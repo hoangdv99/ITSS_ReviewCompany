@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
 
-import { useAuth } from '../../contexts/AuthContext'
+import { useAuth } from '../../../contexts/AuthContext'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,12 +45,11 @@ export default function SignUp() {
 
     async function handleSubmit(e) {
       e.preventDefault();
-      console.log(emailRef.current.value, passwordRef.current.value)
       try {
         setError('')
         setLoading(true)
         await signIn(emailRef.current.value, passwordRef.current.value)
-        history.push('/adminlist')
+        history.push('/admin-list')
       } catch {
         setError('Fail to sign in')
       }
