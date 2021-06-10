@@ -1,15 +1,25 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-import 'firebase/auth';
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 
 const app = firebase.initializeApp({
-    apiKey: "AIzaSyAqcxQEQxDzcKEjYzhP5F2BWyPayQoWk4M",
-    authDomain: "review-company-efbb5.firebaseapp.com",
-    projectId: "review-company-efbb5",
-    storageBucket: "review-company-efbb5.appspot.com",
-    messagingSenderId: "480344273330",
-    appId: "1:480344273330:web:5a204620257f7da004f4ab"
+  apiKey: "AIzaSyCjrwHQsRyde_meZnabgmme1qId3gXNbRc",
+  authDomain: "review-company-2.firebaseapp.com",
+  projectId: "review-company-2",
+  storageBucket: "review-company-2.appspot.com",
+  messagingSenderId: "668859537572",
+  appId: "1:668859537572:web:66109b7ceb861bf3cc6e31",
 });
 
 export const auth = app.auth();
 export const firestore = app.firestore();
+
+export const createNewUser = async ({ name, email, pass }) => {
+  try {
+    auth.createUserWithEmailAndPassword(email, pass).then((userCredential) => {
+      firestore.collection("users").doc(userCredential.uid).set({ name: name });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
