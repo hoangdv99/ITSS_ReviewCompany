@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,6 +14,7 @@ import CompanyIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/AddCircle';
 import UserIcon from '@material-ui/icons/AccountCircle'
 import DropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -48,6 +50,10 @@ export default function Header(props) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
+    const { signOut } = useAuth();
+
+    const history = useHistory();
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -59,8 +65,16 @@ export default function Header(props) {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    
 
+    async function handleLogOut() {
+        try {
+            await signOut()
+            history.push('/')
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+   
     return (
         <React.Fragment>
             <Toolbar className={classes.toolbar}>
@@ -90,7 +104,8 @@ export default function Header(props) {
                             onClose={handleClose}
                         >
                             <MenuItem onClick={handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                            <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+
                         </Menu>
                     </Grid>
                 </Grid>
@@ -103,3 +118,4 @@ Header.propTypes = {
     sections: PropTypes.array,
     title: PropTypes.string,
 };
+

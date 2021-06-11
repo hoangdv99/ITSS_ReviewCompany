@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -28,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
     const classes = useStyles();
     const { sections, title } = props;
+    const history = useHistory();
+
+    function handleSignIn() {
+        history.push('/signin')
+    }
 
     return (
         <React.Fragment>
@@ -46,7 +52,7 @@ export default function Header(props) {
                 <IconButton>
                     <SearchIcon />
                 </IconButton>
-                <Button variant="outlined" size="small">
+                <Button variant="outlined" size="small" onClick={handleSignIn}>
                     Sign in
                 </Button>
             </Toolbar>
