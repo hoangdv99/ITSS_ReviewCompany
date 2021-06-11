@@ -84,7 +84,7 @@ export default function ModalCompany(props) {
 
   const handleSumit = () => {
     props.title === "New" ? props.onAddSubmit(company) : props.onUpdate(company);
-    setCompany({});
+    props.title === "New" ? setCompany({}) : setCompany(company);
     setOpen(false);
   }
 
@@ -140,7 +140,7 @@ export default function ModalCompany(props) {
                             input={<Input className={classes.formInput} />}
                             >
                             {types.map((type) => (
-                                <MenuItem key={type} value={type}>
+                                <MenuItem  value={type}>
                                     {type}
                                 </MenuItem>
                             ))}
@@ -160,9 +160,14 @@ export default function ModalCompany(props) {
                             type="file" 
                             className={classes.formInput}
                             onChange={handleChangeLogo}
-                            /> :
+                            /> 
+                            :
                           <div>
-                            <CardMedia className={classes.companyLogo} image={company.logo} title="logo-text"/>
+                            <CardMedia 
+                              className={classes.companyLogo}
+                              image={company.logo !== "" ? company.logo : "https://source.unsplash.com/random"}
+                              title={company.name + "-text"}
+                            />
                             <Input 
                               id="logo" 
                               name="logo" 
@@ -176,7 +181,8 @@ export default function ModalCompany(props) {
                 </Grid>
                 <Grid container className={classes.modalAction}>
                     <CardActions>
-                        <Button variant="contained" color="primary" size="small" onClick={handleSumit}>
+                        <Button variant="contained" color="primary" size="small" 
+                            onClick={()=>handleSumit()}>
                             <DoneIcon/>
                             Save
                         </Button>

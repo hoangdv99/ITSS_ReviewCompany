@@ -50,10 +50,6 @@ export default function ListCompany() {
         addCompany(item);
     }
 
-    const hanldeRemove = (item) => {
-        removeCompany(item);
-    }
-
     return (
         <React.Fragment>
             <CssBaseline />
@@ -70,13 +66,13 @@ export default function ListCompany() {
                         </Breadcrumbs>
                     </Grid>
                     <Grid item xs={4} className={classes.addBtn}>
-                        <ModalCompany company={company} title="New" onAddSubmit={handleAdd}/>
+                        <ModalCompany  company={company} title="New" onAddSubmit={handleAdd}/>
                     </Grid>
                 </Grid>
 
                 <Grid container className={classes.oneRow}>
-                        {companies.map((co) => (
-                            <Company key={co.title} company={co} onRemove={hanldeRemove(co)} onUpdate={updateCompany}/>
+                        {companies.map((co, i) => (
+                            <Company key={i} company={co} onUpdate={updateCompany} onRemove={removeCompany}/>
                         ))}
                 </Grid>
             </Container>

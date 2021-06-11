@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {Typography, Grid, Card, CardActionArea, CardContent, CardActions, Button, CardMedia} from '@material-ui/core';
 import GradeIcon from "@material-ui/icons/Grade";
@@ -47,11 +46,18 @@ export default function Company(props) {
     totalStar.map(i=>0);
   }
 
+  const handleRemove = async (item) => {
+    await props.onRemove(item)
+  }
+
   return (
     <Grid item xs={12} className={classes.oneCompany}>
         <Card className={classes.card}>
             <CardActionArea component="a" href="#" className={classes.cardActionArea}>
-                <CardMedia className={classes.cardMedia} image={company.logo} title={company.logo + "-text"} />
+                <CardMedia 
+                    className={classes.cardMedia}
+                    image={company.logo !== "" ? company.logo : "https://source.unsplash.com/random"}
+                    title={company.name + "-text"} />
                 <CardContent className={classes.companyDetails}>
                     <Typography className={classes.title} component="h2" variant="h5">
                     {company.name}
@@ -74,7 +80,9 @@ export default function Company(props) {
 
             <CardActions>
                 <ModalCompany company={company} title="Modify" onUpdate={props.onUpdate}/>
-                <Button variant="contained" color="secondary" size="small" onClick={props.onRemove}>
+                <Button 
+                    variant="contained" color="secondary" size="small" 
+                    onClick={()=>handleRemove(company)}>
                     <RemoveIcon/>
                     Delete
                 </Button>
@@ -83,7 +91,3 @@ export default function Company(props) {
     </Grid>
   );
 }
-
-Company.propTypes = {
-  item: PropTypes.object,
-};
