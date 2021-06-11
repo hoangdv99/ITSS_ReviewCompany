@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import './App.css';
 import signIn from './routes/admin/signIn/SignIn';
 import AdminList from './routes/admin/adminList/AdminList';
 import RequestAddCompanyList from './routes/admin/requestAddCompanyList/RequestAddCompanyList';
 import { AuthProvider } from './contexts/AuthContext';
 import ListCompany from "./routes/listCompany/ListCompany";
 import RequestAddCompany from "./routes/requestAddCompany/RequestAddCompany";
-
-import './App.css';
+// import admin route
+import adminListCompany from "./routes/admin/listCompany/ListCompany";
 
 function App() {
   return (
@@ -20,6 +20,8 @@ function App() {
             {/* <Route exact path="/login" component={Login} /> */}
             {/* master */}
             <Route exact path="/" component={ListCompany} />
+            {/* admin */}
+            <Route exact path="/admin/companies" component={adminListCompany} />
             <Route exact path="/companies" component={ListCompany} />
             <Route exact path="/addCompany" component={RequestAddCompany} />
             {/* thang */}

@@ -14,7 +14,6 @@ import CompanyIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/AddCircle';
 import UserIcon from '@material-ui/icons/AccountCircle'
 import DropDownIcon from '@material-ui/icons/ArrowDropDown';
-
 import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -75,8 +74,7 @@ export default function Header(props) {
             console.log(e.message);
         }
     }
-    
-
+   
     return (
         <React.Fragment>
             <Toolbar className={classes.toolbar}>
@@ -107,6 +105,7 @@ export default function Header(props) {
                         >
                             <MenuItem onClick={handleClose}>Profile</MenuItem>
                             <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+
                         </Menu>
                     </Grid>
                 </Grid>
@@ -119,3 +118,4 @@ Header.propTypes = {
     sections: PropTypes.array,
     title: PropTypes.string,
 };
+
