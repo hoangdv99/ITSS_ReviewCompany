@@ -20,7 +20,7 @@ export const createNewUser = async ({ name, email, pass }) => {
       firestore
         .collection("users")
         .doc(userCredential.uid)
-        .set({ name: name, email: email, uid: userCredential.uid });
+        .set({ uid: userCredential.uid, name: name, email: email });
     });
   } catch (error) {
     console.log(error);
