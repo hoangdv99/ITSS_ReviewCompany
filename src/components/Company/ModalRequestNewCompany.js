@@ -99,7 +99,7 @@ export default function ModalRequestNewCompany(props) {
             ...company,
             logo: urlLogo,
         });
-        setCompany({})
+        setCompany(props.company);
         setOpen(false);
         setOpenSnackBar(true);
     }
