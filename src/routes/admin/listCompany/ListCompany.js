@@ -30,7 +30,7 @@ export default function ListCompany() {
     const classes = useStyles();
 
     const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
-    
+
     const company = {
         name: "",
         address: "",
@@ -39,6 +39,7 @@ export default function ListCompany() {
         rating: 0,
         logo: "",
         is_active: 1,
+        totalReview:0,
     }
 
     const handleClick = (event) => {

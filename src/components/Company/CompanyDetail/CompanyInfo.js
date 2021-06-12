@@ -5,6 +5,9 @@ import Rating from '@material-ui/lab/Rating';
 import BusinessIcon from '@material-ui/icons/Business';
 import CreateIcon from '@material-ui/icons/Create';
 import Button from '@material-ui/core/Button';
+import ModalReview from "../ModalReview";
+import ModalRequestNewCompany from "../ModalRequestNewCompany";
+import useCoStorage from "../../../hooks/coStorage";
 
 const useStyles = makeStyles({
     companyInfo__logo: {
@@ -50,6 +53,7 @@ const useStyles = makeStyles({
 
 export default function CompanyInfo({ company }) {
     const classes = useStyles();
+    const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
     console.log(company)
     return (
         <div className={classes.companyInfoCompanyPage}>
@@ -69,16 +73,18 @@ export default function CompanyInfo({ company }) {
                 </div>
             </div>
             <div className={classes.companyAction}>
-                <Button
-                    style={{backgroundColor: '#23d160', borderRadius: 20}}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    className={classes.button}
-                    startIcon={<CreateIcon />}
-                >
-                    Write review
-                </Button>
+                {/*<Button*/}
+                {/*    style={{backgroundColor: '#23d160', borderRadius: 20}}*/}
+                {/*    variant="contained"*/}
+                {/*    color="primary"*/}
+                {/*    size="large"*/}
+                {/*    className={classes.button}*/}
+                {/*    startIcon={<CreateIcon />}*/}
+
+                {/*>*/}
+                {/*    Write review*/}
+                {/*</Button>*/}
+                <ModalReview company={company}/>
             </div>
         </div>
     )

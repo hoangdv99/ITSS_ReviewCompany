@@ -51,15 +51,14 @@ function ListCompany() {
     const limitPerPage = 10;
     const [page, setPage] = React.useState(1);
     const [listCompany, setListCompany] = React.useState([]);
-    const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
+    const [companies, addCompany, updateCompany, removeCompany,companiesActive] = useCoStorage();
     const handleChange = (event, value) => {
         setPage(value);
         console.log(value);
     };
     useEffect(()=>{
-        setListCompany(companies.slice((page-1)*limitPerPage,(page-1)*limitPerPage+limitPerPage));
-        console.log(parseInt(5/3));
-    },[page,companies])
+        setListCompany(companiesActive.slice((page-1)*limitPerPage,(page-1)*limitPerPage+limitPerPage));
+    },[page,companiesActive])
     return (
         <React.Fragment>
             <CssBaseline />
@@ -69,11 +68,11 @@ function ListCompany() {
                     <MainFeaturedPost post={mainFeaturedPost} />
                     <Grid container spacing={5} className={classes.mainGrid}>
                         <Grid>
-                            <Pagination count={parseInt(companies.length/limitPerPage)*limitPerPage<companies.length?parseInt(companies.length/limitPerPage)+1:parseInt(companies.length/limitPerPage)} variant="outlined" shape="rounded" page={page} onChange={handleChange}/>
+                            <Pagination count={parseInt(companiesActive.length/limitPerPage)*limitPerPage<companiesActive.length?parseInt(companiesActive.length/limitPerPage)+1:parseInt(companiesActive.length/limitPerPage)} variant="outlined" shape="rounded" page={page} onChange={handleChange}/>
                             {listCompany.length>0 && listCompany.map((co, i) => (
                                 <FeaturedPost key={i} company={co} onUpdate={updateCompany} onRemove={removeCompany}/>
                             ))}
-                            <Pagination count={parseInt(companies.length/limitPerPage)*limitPerPage<companies.length?parseInt(companies.length/limitPerPage)+1:parseInt(companies.length/limitPerPage)} variant="outlined" shape="rounded" page={page} onChange={handleChange}/>
+                            <Pagination count={parseInt(companiesActive.length/limitPerPage)*limitPerPage<companiesActive.length?parseInt(companiesActive.length/limitPerPage)+1:parseInt(companiesActive.length/limitPerPage)} variant="outlined" shape="rounded" page={page} onChange={handleChange}/>
                         </Grid>
                     </Grid>
                 </main>

@@ -8,6 +8,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { useHistory } from 'react-router-dom'
+import {Grid} from "@material-ui/core";
+import ModalCompany from "../Admin/ModalCompany";
+import useCoStorage from "../../hooks/coStorage";
+import ModalRequestNewCompany from "./ModalRequestNewCompany";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -30,11 +34,26 @@ export default function Header(props) {
     const classes = useStyles();
     const { sections, title } = props;
     const history = useHistory();
-
+    const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
     function handleSignIn() {
         history.push('/signin')
     }
 
+    const company = {
+        name: "",
+        address: "",
+        site: "",
+        type: "",
+        rating: 0,
+        totalReview:0,
+        logo: "",
+        is_active: 0,
+    }
+
+
+    const handleAdd = (item) => {
+        addCompany(item);
+    }
     return (
         <React.Fragment>
             <Toolbar className={classes.toolbar}>
@@ -52,24 +71,11 @@ export default function Header(props) {
                 <IconButton>
                     <SearchIcon />
                 </IconButton>
+                <ModalRequestNewCompany  company={company} title="New" onAddSubmit={handleAdd}/>
                 <Button variant="outlined" size="small" onClick={handleSignIn}>
                     Sign in
                 </Button>
             </Toolbar>
-            {/*<Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>*/}
-            {/*    {sections.map((section) => (*/}
-            {/*        <Link*/}
-            {/*            color="inherit"*/}
-            {/*            noWrap*/}
-            {/*            key={section.title}*/}
-            {/*            variant="body2"*/}
-            {/*            href={section.url}*/}
-            {/*            className={classes.toolbarLink}*/}
-            {/*        >*/}
-            {/*            {section.title}*/}
-            {/*        </Link>*/}
-            {/*    ))}*/}
-            {/*</Toolbar>*/}
         </React.Fragment>
     );
 }

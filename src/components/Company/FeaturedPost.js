@@ -57,11 +57,11 @@ export default function FeaturedPost(props) {
   const handleRemove = async (item) => {
     await props.onRemove(item)
   }
-
+ const linkParam = '/company/'+company.id;
   return (
       <Grid item xs={12} className={classes.oneCompany}>
         <Card className={classes.card}>
-          <CardActionArea component="a" href="#" className={classes.cardActionArea}>
+          <CardActionArea component="a" href={linkParam} className={classes.cardActionArea}>
             <CardMedia
                 className={classes.cardMedia}
                 image={company.logo !== "" ? company.logo : "https://source.unsplash.com/random"}
@@ -70,7 +70,7 @@ export default function FeaturedPost(props) {
               <Typography className={classes.title} component="h2" variant="h5">
                 {company.name}
               </Typography>
-              {fillStar(company.rating)}
+              {fillStar(parseInt(company.rating))}
               {totalStar.map(
                   i=>(
                       i == 1? <GradeIcon style={{color:'yellow'}}/>:<StarOutlineIcon/>
