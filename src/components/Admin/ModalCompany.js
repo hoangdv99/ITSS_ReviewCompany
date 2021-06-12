@@ -6,8 +6,9 @@ import DoneIcon from '@material-ui/icons/Done';
 import CancleIcon from '@material-ui/icons/CancelOutlined';
 import ModifyIcon from '@material-ui/icons/EditOutlined';
 import {Modal, Button, Paper, Typography, Input, Grid, Select, MenuItem, CardActions, CardMedia} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
-import {uploadImage} from '../../config/firebase';
+import {uploadImage, validateAddCompany} from '../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
   modalStyle: {
@@ -46,12 +47,23 @@ const types = [
     'abc',
     'xyz',
     'others'
-]
+];
+
+const initCompany = {
+  name: "",
+  address: "",
+  site: "",
+  type: "others",
+  rating: 0,
+  logo: "https://bitly.com.vn/i76yfb",
+  is_active: 1,
+}
 
 export default function ModalCompany(props) {
   const classes = useStyles();
   const [company, setCompany] = useState(props.company);
   const [open, setOpen] = React.useState(false);
+  const [error, setError] = useState('');
 
   const handleOpen = () => {
     setOpen(true);
@@ -82,10 +94,35 @@ export default function ModalCompany(props) {
     }
   }
 
-  const handleSumit = () => {
-    props.title === "New" ? props.onAddSubmit(company) : props.onUpdate(company);
-    props.title === "New" ? setCompany({}) : setCompany(company);
-    setOpen(false);
+  const checkAllValidate = async () => {
+    if(company.name === ""){
+      setError('Name is must be filled!');
+      return false;
+    }else if(await validateAddCompany(company.name, company.site)){
+      setError('Name and site are existed!');
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  const handleSumit = async () => {
+    setError('');
+    if(props.title === "New"){
+      if(await checkAllValidate()){
+        props.onAddSubmit(company);
+        setCompany(initCompany);
+        setOpen(false);
+      }
+    }else{
+      if(company.name === ""){
+        setError('Name is must be filled!');
+      }else{
+        props.onUpdate(company);
+        setCompany(company);
+        setOpen(false); 
+      }
+    }
   }
 
   return (
@@ -99,7 +136,8 @@ export default function ModalCompany(props) {
             <Typography component="h4" variant="h5" className={classes.modalTitle}>
                 {props.title} Company
             </Typography>
-            <form className={classes.modalForm}>
+            {error && <Alert variant="filled" severity="error">{error}</Alert>}
+            <form className={classes.modalForm} noValidate>
                 <Typography>Name</Typography>
                 <Input 
                   placeholder="company's name"
@@ -133,11 +171,11 @@ export default function ModalCompany(props) {
                     </Grid>
                     <Grid item xs={9}>
                         <Select
+                            className={classes.formInput}
                             value={company.type}
                             name="type"
                             id="type"
                             onChange={handleChange}
-                            input={<Input className={classes.formInput} />}
                             >
                             {types.map((type) => (
                                 <MenuItem  value={type}>
@@ -165,7 +203,7 @@ export default function ModalCompany(props) {
                           <div>
                             <CardMedia 
                               className={classes.companyLogo}
-                              image={company.logo !== "" ? company.logo : "https://source.unsplash.com/random"}
+                              image={company.logo !== "" ? company.logo : "https://bitly.com.vn/i76yfb"}
                               title={company.name + "-text"}
                             />
                             <Input 

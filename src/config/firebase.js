@@ -4,12 +4,12 @@ import 'firebase/auth';
 import 'firebase/storage';
 
 const app = firebase.initializeApp({
-    apiKey: "AIzaSyCjrwHQsRyde_meZnabgmme1qId3gXNbRc",
-    authDomain: "review-company-2.firebaseapp.com",
-    projectId: "review-company-2",
-    storageBucket: "review-company-2.appspot.com",
-    messagingSenderId: "668859537572",
-    appId: "1:668859537572:web:66109b7ceb861bf3cc6e31"
+    apiKey: "AIzaSyBXOnQsnlKAt0XmofKr4ei8NttcP2BTqcg",
+    authDomain: "review-company3.firebaseapp.com",
+    projectId: "review-company3",
+    storageBucket: "review-company3.appspot.com",
+    messagingSenderId: "1019049461189",
+    appId: "1:1019049461189:web:22347c8cbe0506f8a3b7ac"
 });
 
 export const auth = app.auth();
@@ -87,4 +87,20 @@ export const removeCompany = async (item) => {
     } catch (err){
         console.log(err);
     }
+}
+
+//loicd - validation for company
+export const validateAddCompany = async (name, site) => {
+    const all = firestore.collection("companies").get();
+    let ck = false;
+    try{
+        (await all).forEach((item)=>{
+            if(name === item.data().name && site === item.data().site){
+                ck = true;
+            }
+        })
+    } catch (err) {
+        console.log(err);
+    }
+    return ck;
 }

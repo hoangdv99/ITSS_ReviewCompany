@@ -6,7 +6,7 @@ function useCoStorage() {
 
     useEffect(() => {
         getItems();
-    }, [items]);
+    }, []);
 
     const getItems = async () => {
         const _items = await getCompanies();

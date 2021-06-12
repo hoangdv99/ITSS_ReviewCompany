@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Menu from '@material-ui/core/Menu';
-import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
 import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/AddCircle';
@@ -45,9 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
     const classes = useStyles();
-    const {title, username} = props;
-
-    const [value, setValue] = React.useState(0);
+    const {username} = props;
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
