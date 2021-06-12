@@ -68,7 +68,7 @@ export default function FeaturedPost(props) {
                 title={company.name + "-text"} />
             <CardContent className={classes.companyDetails}>
               <Typography className={classes.title} component="h2" variant="h5">
-                {company.name}
+                {company.name}<b>({company.totalReview})</b>
               </Typography>
               {fillStar(parseInt(company.rating))}
               {totalStar.map(
