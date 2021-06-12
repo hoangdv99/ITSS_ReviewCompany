@@ -65,6 +65,14 @@ export default function ModalReview({company, reviews, setReviews}) {
         setOpen(true);
     };
     const handleClose = () => {
+        setReviewCompany({
+            companyId:company.id,
+            reviewer:'',
+            position:'',
+            text:'',
+            rating:'',
+            created_at:moment().format(),
+        })
         setOpen(false);
     };
     const handleChange = (event) => {

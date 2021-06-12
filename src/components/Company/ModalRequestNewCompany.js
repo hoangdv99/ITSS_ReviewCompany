@@ -59,6 +59,7 @@ export default function ModalRequestNewCompany(props) {
     };
 
     const handleClose = () => {
+        setCompany(props.company);
         setOpen(false);
     };
 
