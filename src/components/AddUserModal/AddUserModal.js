@@ -1,90 +1,158 @@
+import Backdrop from "@material-ui/core/Backdrop";
+import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Modal from "@material-ui/core/Modal";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import AddIcon from "@material-ui/icons/AddCircleOutline";
 import React, { useState } from "react";
-import "./AddUserModal.css";
 import { createNewUser } from "../../config/firebase";
+import "./AddUserModal.css";
 
-function AddUserModal(props) {
-  const { isShow, handleClose } = props;
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    width: "40%",
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    borderRadius: "5px",
+  },
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: "25ch",
+  },
+  buttonGroup: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+  },
+  button: {
+    margin: "10px",
+  },
+}));
+
+function AddUserModal() {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [error, setError] = useState("");
 
-  function handleAdd(e) {
-    e.preventDefault();
-    createNewUser({ name, email, pass });
-    handleClose(false);
+  function handleOpen() {
+    setOpen(true);
   }
 
-  function handleCancel(e) {
-    e.preventDefault();
-    handleClose(false);
+  function handleClose() {
+    setOpen(false);
+    setError("");
   }
 
-  return isShow ? (
+  async function handleAdd() {
+    try {
+      await createNewUser({ name, email, pass });
+      handleClose();
+    } catch (err) {
+      if (err) {
+        setError(err.message);
+      }
+    }
+  }
+
+  return (
     <div>
-      <div className="popup">
-        <div className="popup-inner">
-          <div className="popup-header">
-            <h5 className="title">管理者追加</h5>
-            <span>
-              <button onClick={() => handleClose(false)}>X</button>
-            </span>
-          </div>
-          <div className="popup-body">
-            <form>
-              <div className="input-field">
-                <div className="label">
-                  <label>名前:</label>
-                </div>
-                <div className="input">
-                  <input
-                    type="text"
-                    style={{ width: "90%" }}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="input-field">
-                <div className="label">
-                  <label>メールアドレス:</label>
-                </div>
-                <div className="input">
-                  <input
-                    type="email"
-                    style={{ width: "90%" }}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="input-field">
-                <div className="label">
-                  <label>パスワード:</label>
-                </div>
-                <div className="input">
-                  <input
-                    type="password"
-                    style={{ width: "90%" }}
-                    value={pass}
-                    onChange={(e) => setPass(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="btn-group">
-                <button className="btn-add" onClick={handleAdd}>
-                  追加
-                </button>
-                <button className="btn-cancel" onClick={handleCancel}>
-                  キャンセル
-                </button>
+      <Button
+        variant="contained"
+        color="primary"
+        aria-haspopup="true"
+        onClick={handleOpen}
+      >
+        <AddIcon />
+        Add new Administrator
+      </Button>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <h2>Add new administrator</h2>
+            <form className={classes.root} noValidate autoComplete="off">
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                onChange={(e) => setName(e.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => setPass(e.target.value)}
+              />
+              {error !== "" ? <p className="error">{error}</p> : ""}
+              <div className={classes.buttonGroup}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={handleAdd}
+                >
+                  Create
+                </Button>
+                <Button
+                  variant="contained"
+                  className={classes.button}
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
               </div>
             </form>
           </div>
-        </div>
-      </div>
+        </Fade>
+      </Modal>
     </div>
-  ) : (
-    ""
   );
 }
 
