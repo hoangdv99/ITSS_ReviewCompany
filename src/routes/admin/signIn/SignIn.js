@@ -50,7 +50,7 @@ export default function SignUp() {
         setLoading(true)
         await signIn(emailRef.current.value, passwordRef.current.value)
         history.push('/admin-list')
-      } catch {
+      } catch(err) {
         setError('Fail to sign in')
       }
       setLoading(false)

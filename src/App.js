@@ -26,8 +26,8 @@ function App() {
             <Route exact path="/addCompany" component={RequestAddCompany} />
             {/* thang */}
             <Route exact path="/signin" component={signIn} />
-            <Route exact path="/admin-list" component={AdminList} />
-            <Route exact path="/request-list" component={RequestAddCompanyList} />
+            <Route exact path="/admin/admin-list" component={AdminList} />
+            <Route exact path="/admin/company-request-list" component={RequestAddCompanyList} />
           </Switch>
         </AuthProvider>
       </Router>

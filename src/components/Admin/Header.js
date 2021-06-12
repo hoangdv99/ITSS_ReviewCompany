@@ -10,10 +10,11 @@ import Tab from '@material-ui/core/Tab';
 import Menu from '@material-ui/core/Menu';
 import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
-import CompanyIcon from '@material-ui/icons/Home';
+import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/AddCircle';
 import UserIcon from '@material-ui/icons/AccountCircle'
 import DropDownIcon from '@material-ui/icons/ArrowDropDown';
+import CompanyIcon from '@material-ui/icons/BuildOutlined'
 import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +64,8 @@ export default function Header(props) {
     };
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        // setValue(newValue);
+        history.push(newValue);
     };
 
     async function handleLogOut() {
@@ -79,16 +81,21 @@ export default function Header(props) {
         <React.Fragment>
             <Toolbar className={classes.toolbar}>
                 < Grid container>
-                    <Grid item xs = {1} className={classes.homeLogo}>
+                    {/* <Grid item xs = {1} className={classes.homeLogo}>
                         <Link component="button" variant="body2" to="/companies">
                             Home
                         </Link>
-                    </Grid>
-                    <Grid item xs = {8}>
-                        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                            <Tab icon={<CompanyIcon/>} label="companies" />
-                            <Tab icon={<AddIcon/>} label="company add request"  />
-                            <Tab icon={<UserIcon/>} label="admins"  />
+                    </Grid> */}
+                    <Grid item xs = {9}>
+                        <Tabs 
+                            value={history.location.pathname} 
+                            onChange={handleChange}
+                            aria-label="simple tabs example"
+                        >
+                            <Tab icon={<HomeIcon/>} label="home page" value="/"/>
+                            <Tab icon={<CompanyIcon/>} label="companies" value="/admin/companies"/>
+                            <Tab icon={<AddIcon/>} label="company add request" value="/admin/company-request-list"/>
+                            <Tab icon={<UserIcon/>} label="admins" value="/admin/admin-list"/>
                         </Tabs>
                     </Grid>
                     <Grid item xs ={3} className={classes.userArea}>
