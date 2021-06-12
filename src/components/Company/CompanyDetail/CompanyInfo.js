@@ -3,11 +3,8 @@ import React from 'react'
 import Box from '@material-ui/core/Box';
 import Rating from '@material-ui/lab/Rating';
 import BusinessIcon from '@material-ui/icons/Business';
-import CreateIcon from '@material-ui/icons/Create';
-import Button from '@material-ui/core/Button';
 import ModalReview from "../ModalReview";
-import ModalRequestNewCompany from "../ModalRequestNewCompany";
-import useCoStorage from "../../../hooks/coStorage";
+import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 
 const useStyles = makeStyles({
     companyInfo__logo: {
@@ -31,6 +28,7 @@ const useStyles = makeStyles({
     companyInfo__name__rating: {
         display: 'flex',
         justifyItems: 'center',
+        height: 32
     },
     companyInfo__name: {
         marginTop: 0,
@@ -45,16 +43,18 @@ const useStyles = makeStyles({
         display: 'flex',
         marginLeft: 10
     },
+    companyInfo__type: {
+        display: 'flex',
+        marginLeft: 10
+    },
     companyAction: {
         flex: 2
     }
 })
 
 
-export default function CompanyInfo({ company }) {
+export default function CompanyInfo({ company, reviews, setReviews }) {
     const classes = useStyles();
-    const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
-    console.log(company)
     return (
         <div className={classes.companyInfoCompanyPage}>
             <div className={classes.companyInfo}>
@@ -65,6 +65,14 @@ export default function CompanyInfo({ company }) {
                         <Box component="fieldset" mb={3} borderColor="transparent" className={classes.companyInfo__rating}>
                             <Rating name="read-only" value={company.rating} precision={1} readOnly />
                         </Box>
+                        <div style={{
+                            fontSize: 20,
+                            fontWeight: 600
+                        }}>({reviews.length})</div>
+                    </div>
+                    <div className={classes.companyInfo__type}>
+                        <WorkOutlineIcon />
+                        <div>{company.type}</div>
                     </div>
                     <div className={classes.companyInfo__location}>
                         <BusinessIcon />
@@ -73,18 +81,7 @@ export default function CompanyInfo({ company }) {
                 </div>
             </div>
             <div className={classes.companyAction}>
-                {/*<Button*/}
-                {/*    style={{backgroundColor: '#23d160', borderRadius: 20}}*/}
-                {/*    variant="contained"*/}
-                {/*    color="primary"*/}
-                {/*    size="large"*/}
-                {/*    className={classes.button}*/}
-                {/*    startIcon={<CreateIcon />}*/}
-
-                {/*>*/}
-                {/*    Write review*/}
-                {/*</Button>*/}
-                <ModalReview company={company}/>
+                <ModalReview company={company} reviews={reviews} setReviews={setReviews} />
             </div>
         </div>
     )

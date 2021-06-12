@@ -21,9 +21,8 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-export default function Review({company}) {
+export default function Review({company, reviews, setReviews}) {
     const classes = useStyles();
-    const [reviews, setReviews] = useState([]);
     const [reviewsFilterByStar, setReviewsFilterByStar] = useState([]);
     const [starFilter, setStarFilter] = useState(0);
 

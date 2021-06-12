@@ -63,7 +63,7 @@ export default function ReviewCard({ review }) {
                 title={
                     <div className={classes.cardHeader}>
                         <div style={{ display: 'flex', flex: 9 }}>
-                            <span>{review.reviewer}</span>
+                            <span>{review.reviewer} ({review.position})</span>
                             <Box component="fieldset" mb={3} borderColor="transparent" className={classes.cardHeaderRating}>
                                 <Rating name="read-only" value={review.rating} precision={1} readOnly />
                             </Box>

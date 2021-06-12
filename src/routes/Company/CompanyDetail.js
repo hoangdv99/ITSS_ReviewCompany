@@ -26,6 +26,7 @@ export default function CompanyDetail() {
     const classes = useStyles();
     const { companyId } = useParams();
     const [company, setCompany] = useState(null);
+    const [reviews, setReviews] = useState([]);
     
     useEffect(() => {
         (async () => {
@@ -41,8 +42,8 @@ export default function CompanyDetail() {
             { company && (
                 <div className={classes.root}>
                     <CompanyBreadCrumbs company={company} />
-                    <CompanyInfo company={company} />
-                    <Review company={company} />
+                    <CompanyInfo company={company} reviews={reviews} setReviews={setReviews} />
+                    <Review company={company} reviews={reviews} setReviews={setReviews} />
                 </div>
             ) }
         </div>
