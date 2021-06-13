@@ -68,7 +68,7 @@ export default function ReviewCard({ review }) {
                                 <Rating name="read-only" value={review.rating} precision={1} readOnly />
                             </Box>
                         </div>
-                        <span style={{ fontSize: 18, color: 'grayText', flex: 1 }}>{moment(review.created_at).format('DD/MM/YYYY')}</span>
+                        <span style={{ fontSize: 18, color: 'grayText', flex: 1 }}>{moment(review.created_at).format('DD/MM/YYYY HH:mm')}</span>
                     </div>
                 }
                 style={{ paddingBottom: 0 }}

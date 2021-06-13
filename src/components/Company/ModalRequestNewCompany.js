@@ -9,6 +9,7 @@ import {Modal, Button, Paper, Typography, Input, Grid, Select, MenuItem, CardAct
 import Snackbar from '@material-ui/core/Snackbar';
 import {uploadImage} from '../../config/firebase';
 import Alert from '@material-ui/lab/Alert';
+import useCoStorage from "../../hooks/coStorage";
 const useStyles = makeStyles((theme) => ({
     modalStyle: {
         position: 'absolute',
@@ -50,6 +51,7 @@ const types = [
 
 export default function ModalRequestNewCompany(props) {
     const classes = useStyles();
+    const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
     const [company, setCompany] = useState(props.company);
     const [open, setOpen] = React.useState(false);
     const [openSnackBar, setOpenSnackBar] = React.useState(false);
@@ -86,7 +88,7 @@ export default function ModalRequestNewCompany(props) {
         setOpenSnackBar(false);
     };
     const handleSumit = async () => {
-        const urlLogo = await uploadImage(fileUpload);
+        const urlLogo = fileUpload && await uploadImage(fileUpload);
         console.log(urlLogo);
         if(urlLogo === ""){
         }else{
@@ -105,11 +107,14 @@ export default function ModalRequestNewCompany(props) {
     }
     const onValidate = () => {
         setError('');
-        console.log(company);
         if(!company.name){
             setError('Name can not null');
+        }else if (!companies.includes(company.name)){
+            setError('Name exist');
         }else if (!company.site){
             setError('Website can not null');
+        }else if (!companies.includes(company.site)){
+            setError('Website exist');
         }else {
             handleSumit();
         }
