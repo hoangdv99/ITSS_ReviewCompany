@@ -99,21 +99,30 @@ export default function ModalRequestNewCompany(props) {
         }
         props.onAddSubmit({
             ...company,
-            logo: urlLogo,
+            logo: urlLogo?urlLogo:company.logo,
         });
         setCompany(props.company);
         setOpen(false);
         setOpenSnackBar(true);
     }
+    const checkExist = (key,data) =>{
+        let check  = false;
+        companies.map(i=>{
+            if(i[key] == data){
+                check = true;
+            }
+        })
+        return check;
+    }
     const onValidate = () => {
         setError('');
         if(!company.name){
             setError('Name can not null');
-        }else if (!companies.includes(company.name)){
+        }else if (checkExist('name',company.name)){
             setError('Name exist');
         }else if (!company.site){
             setError('Website can not null');
-        }else if (!companies.includes(company.site)){
+        }else if (checkExist('site',company.site)){
             setError('Website exist');
         }else {
             handleSumit();

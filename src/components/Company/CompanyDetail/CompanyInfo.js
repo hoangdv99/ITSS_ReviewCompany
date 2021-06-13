@@ -53,7 +53,7 @@ const useStyles = makeStyles({
 })
 
 
-export default function CompanyInfo({ company, reviews, setReviews }) {
+export default function CompanyInfo({ company, reviews, setReviews, setCompany}) {
     const classes = useStyles();
     return (
         <div className={classes.companyInfoCompanyPage}>
@@ -81,7 +81,7 @@ export default function CompanyInfo({ company, reviews, setReviews }) {
                 </div>
             </div>
             <div className={classes.companyAction}>
-                <ModalReview company={company} reviews={reviews} setReviews={setReviews} />
+                <ModalReview company={company} reviews={reviews} setReviews={setReviews} setCompany={setCompany}/>
             </div>
         </div>
     )

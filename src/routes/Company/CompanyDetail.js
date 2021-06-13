@@ -27,7 +27,7 @@ export default function CompanyDetail() {
     const { companyId } = useParams();
     const [company, setCompany] = useState(null);
     const [reviews, setReviews] = useState([]);
-    
+
     useEffect(() => {
         (async () => {
             const _company = (await firestore.collection('companies').doc(companyId).get()).data()
@@ -41,7 +41,7 @@ export default function CompanyDetail() {
             { company && (
                 <div className={classes.root}>
                     <CompanyBreadCrumbs company={company} />
-                    <CompanyInfo company={company} reviews={reviews} setReviews={setReviews} />
+                    <CompanyInfo company={company} reviews={reviews} setReviews={setReviews} setCompany={setCompany}/>
                     <Review company={company} reviews={reviews} setReviews={setReviews} />
                 </div>
             ) }

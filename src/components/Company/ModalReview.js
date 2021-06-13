@@ -47,7 +47,7 @@ const types = [
    1,2,3,4,5
 ]
 
-export default function ModalReview({company, reviews, setReviews}) {
+export default function ModalReview({company, reviews, setReviews,setCompany}) {
     const classes = useStyles();
     const [reviewCompany, setReviewCompany] = useState({
         companyId: company.id,
@@ -82,18 +82,10 @@ export default function ModalReview({company, reviews, setReviews}) {
             [event.target.name]: event.target.value,
         })
     }
-    const handleChangeLogo = async event => {
-        setFileUpload(event.target.files[0]);
-    }
-    const handleClick = () => {
-        setOpenSnackBar(true);
-    };
-
     const handleCloseSnackBar = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-
         setOpenSnackBar(false);
     };
     const addReview = async ({item}) => {
@@ -119,6 +111,7 @@ export default function ModalReview({company, reviews, setReviews}) {
     const handleSubmit = async () => {
         addReview({item:reviewCompany});
         updateCompanyRating();
+        setCompany({...company,rating:(company.rating*company.totalReview+reviewCompany.rating)/(company.totalReview+1)});
         setReviewCompany({
             companyId:company.id,
             reviewer:'',
