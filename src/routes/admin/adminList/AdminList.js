@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/AddCircleOutline';
 import ListTable from '../../../components/Admin/adminList/ListTable';
 import Header from '../../../components/Admin/Header';
 import { useAuth } from '../../../contexts/AuthContext';
+import firebase from '../../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -46,7 +47,7 @@ export default function AdminList() {
         <React.Fragment>
             <CssBaseline />
             <Container className={classes.mainPage}>
-                 <Header title="ADMIN LIST" username = '{currentUser.email}'/> {/*Can fix currentUser khi refresh */}
+                 <Header title="ADMIN LIST" username = {currentUser.email}/> {/*Can fix currentUser khi refresh */}
 
                 <Grid container className={classes.oneRow}>
                     <Grid item xs={8}>
