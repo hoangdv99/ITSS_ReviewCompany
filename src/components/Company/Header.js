@@ -46,7 +46,7 @@ export default function Header(props) {
     type: "",
     rating: 0,
     totalReview: 0,
-    logo: "",
+    logo: "https://bitly.com.vn/i76yfb",
     is_active: 0,
   };
 
