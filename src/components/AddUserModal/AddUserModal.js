@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddUserModal() {
+function AddUserModal({users, setUsers}) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
@@ -61,6 +61,7 @@ function AddUserModal() {
   async function handleAdd() {
     try {
       await createNewUser({ name, email, pass });
+      setUsers([...users, {name, email, pass}]);
       handleClose();
     } catch (err) {
       if (err) {

@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
+import {Link as Link1} from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,10 +25,12 @@ export default function CompanyBreadcrumbs({company}) {
 
     return (
         <Breadcrumbs aria-label="breadcrumb" className={classes.root}>
-            <Link color="inherit" href="/" className={classes.link}>
-                <HomeIcon className={classes.icon} />
-                Homepage
-            </Link>
+            <Link1 to="/" style={{textDecoration: 'none', color: 'gray'}}>
+                <Link color="inherit" className={classes.link}>
+                    <HomeIcon className={classes.icon} />
+                    Homepage
+                </Link>
+            </Link1>
             <Link
                 color="inherit"
                 className={classes.link}

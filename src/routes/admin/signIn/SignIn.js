@@ -46,10 +46,10 @@ export default function SignUp() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      setError('')
-      setLoading(true)
-      await signIn(emailRef.current.value, passwordRef.current.value)
-      history.push('admin/admin-list')
+      setError("");
+      setLoading(true);
+      await signIn(emailRef.current.value, passwordRef.current.value);
+      history.push("/admin/admin-list");
     } catch (e) {
       setError('Fail to sign in')
     }

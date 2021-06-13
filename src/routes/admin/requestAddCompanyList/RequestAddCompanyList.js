@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import AddRequest from '../../../components/Admin/requestAddCompanyList/AddRequest';
 import Header from '../../../components/Admin/Header';
+import { useAuth } from '../../../contexts/AuthContext';
 //import { useAuth } from '../../../contexts/AuthContext';
 
 
@@ -30,12 +31,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RequestAddCompanyList() {
     const classes = useStyles();
+    const {currentUser} = useAuth();
 
     return (
         <React.Fragment>
             <CssBaseline />
             <Container className={classes.mainPage}>
-                 <Header title="ADMIN LIST" username = '{currentUser.email}'/> {/*Can fix currentUser khi refresh */}
+                 <Header title="ADMIN LIST" username = {currentUser.email}/> {/*Can fix currentUser khi refresh */}
 
                 <Grid container className={classes.oneRow}>
                     <Grid item xs={8}>

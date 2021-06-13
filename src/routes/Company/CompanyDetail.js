@@ -38,7 +38,6 @@ export default function CompanyDetail() {
 
     return (
         <div>
-            {/* <Appbar /> */}
             { company && (
                 <div className={classes.root}>
                     <CompanyBreadCrumbs company={company} />

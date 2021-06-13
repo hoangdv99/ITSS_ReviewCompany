@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,8 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-import { firestore } from '../../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -19,22 +17,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function ListTable() {
+export default function ListTable({users}) {
     const classes = useStyles();
-
-    const [users, setUsers] = useState([]);
-
-    const fetchUsers = async () => {
-        const usersRef = firestore.collection('users');
-        const snapshot = await usersRef.get();
-        snapshot.docs.forEach(user => {
-            setUsers(users => [...users, user.data()]);
-        });
-    }
-
-    useEffect(() => {
-        fetchUsers()
-    }, [])
 
     return (
         <TableContainer component={Paper}>
