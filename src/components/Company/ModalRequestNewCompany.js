@@ -53,6 +53,7 @@ export default function ModalRequestNewCompany(props) {
     const [company, setCompany] = useState(props.company);
     const [open, setOpen] = React.useState(false);
     const [openSnackBar, setOpenSnackBar] = React.useState(false);
+    const [error, setError] = React.useState('');
     const [fileUpload, setFileUpload] = React.useState('');
     const handleOpen = () => {
         setOpen(true);
@@ -88,8 +89,6 @@ export default function ModalRequestNewCompany(props) {
         const urlLogo = await uploadImage(fileUpload);
         console.log(urlLogo);
         if(urlLogo === ""){
-            alert("Action fails!");
-            setOpen(false);
         }else{
             setCompany({
                 ...company,
@@ -103,6 +102,17 @@ export default function ModalRequestNewCompany(props) {
         setCompany(props.company);
         setOpen(false);
         setOpenSnackBar(true);
+    }
+    const onValidate = () => {
+        setError('');
+        console.log(company);
+        if(!company.name){
+            setError('Name can not null');
+        }else if (!company.site){
+            setError('Website can not null');
+        }else {
+            handleSumit();
+        }
     }
     return (
         <div>
@@ -181,10 +191,11 @@ export default function ModalRequestNewCompany(props) {
                                         />
                             </Grid>
                         </Grid>
+                        {error !== "" ? <p className="error">{error}</p> : ""}
                         <Grid container className={classes.modalAction}>
                             <CardActions>
                                 <Button variant="contained" color="primary" size="small"
-                                        onClick={()=>handleSumit()}>
+                                        onClick={()=>onValidate()}>
                                     <DoneIcon/>
                                     Save
                                 </Button>

@@ -61,6 +61,7 @@ export default function ModalReview({company, reviews, setReviews}) {
     const [openSnackBar, setOpenSnackBar] = React.useState(false);
     const [fileUpload, setFileUpload] = React.useState('');
     const [totalRating, setTotalRating] = React.useState(0);
+    const [error, setError] = React.useState('');
     const handleOpen = () => {
         setOpen(true);
     };
@@ -129,6 +130,19 @@ export default function ModalReview({company, reviews, setReviews}) {
         setOpen(false);
         setOpenSnackBar(true);
     }
+    const onValidate = () => {
+        setError('');
+        console.log(company);
+        if(!reviewCompany.reviewer){
+            setError('reviewer can not null');
+        }else if (!reviewCompany.text){
+            setError('Text can not null');
+        }else if (!reviewCompany.rating){
+            setError('Rating can not null');
+        }else {
+            handleSubmit();
+        }
+    }
     return (
         <div>
             <Snackbar open={openSnackBar} autoHideDuration={2000} onClose={handleCloseSnackBar}>
@@ -172,7 +186,7 @@ export default function ModalReview({company, reviews, setReviews}) {
                         <Typography>Review công ty</Typography>
                         <Input
                             placeholder="Review công ty"
-                            value={reviewCompany.site}
+                            value={reviewCompany.text}
                             name="text"
                             id="text"
                             className={classes.formInput}
@@ -184,7 +198,7 @@ export default function ModalReview({company, reviews, setReviews}) {
                             </Grid>
                             <Grid item xs={9}>
                                 <Select
-                                    value={reviewCompany.type}
+                                    value={reviewCompany.rating}
                                     name="rating"
                                     id="rating"
                                     onChange={handleChange}
@@ -198,10 +212,11 @@ export default function ModalReview({company, reviews, setReviews}) {
                                 </Select>
                             </Grid>
                         </Grid>
+                        {error !== "" ? <p className="error">{error}</p> : ""}
                         <Grid container className={classes.modalAction}>
                             <CardActions>
                                 <Button variant="contained" color="primary" size="small"
-                                        onClick={handleSubmit}>
+                                        onClick={onValidate}>
                                     <DoneIcon/>
                                     Save
                                 </Button>
