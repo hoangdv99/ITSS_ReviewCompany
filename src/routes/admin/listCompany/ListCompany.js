@@ -45,6 +45,7 @@ export default function ListCompany() {
     const handleClick = (event) => {
         event.preventDefault();
         console.info('You clicked a breadcrumb.');
+        console.log(companies)
     }
 
     const handleAdd = (item) => {

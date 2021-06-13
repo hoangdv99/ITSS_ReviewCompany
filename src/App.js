@@ -10,6 +10,7 @@ import ListCompany from "./routes/listCompany/ListCompany";
 import RequestAddCompany from "./routes/requestAddCompany/RequestAddCompany";
 // import admin route
 import adminListCompany from "./routes/admin/listCompany/ListCompany";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute"
 
 function App() {
   return (
@@ -26,8 +27,8 @@ function App() {
             <Route exact path="/addCompany" component={RequestAddCompany} />
             {/* thang */}
             <Route exact path="/signin" component={signIn} />
-            <Route exact path="/admin/admin-list" component={AdminList} />
-            <Route exact path="/admin/company-request-list" component={RequestAddCompanyList} />
+            <PrivateRoute exact path="/admin/admin-list" component={AdminList} />
+            <PrivateRoute exact path="/admin/request-list" component={RequestAddCompanyList} />
           </Switch>
         </AuthProvider>
       </Router>

@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useRef, useState } from 'react';
+import { useHistory, Link } from 'react-router-dom'
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -36,24 +36,24 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef()
+  const passwordRef = useRef()
   const { signIn } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      setError("");
-      setLoading(true);
-      await signIn(emailRef.current.value, passwordRef.current.value);
-      history.push("/admin-list");
+      setError('')
+      setLoading(true)
+      await signIn(emailRef.current.value, passwordRef.current.value)
+      history.push('admin/admin-list')
     } catch (e) {
-      setError("Fail to sign in");
+      setError('Fail to sign in')
     }
-    setLoading(false);
+    setLoading(false)
   }
 
   return (
@@ -106,8 +106,16 @@ export default function SignUp() {
           >
             Sign In
           </Button>
+          <Typography
+          align="center"
+          variant="subtitle1"
+          >If you are not admin, please return to &nbsp;
+            <Link to="/">
+               Homepage
+            </Link>
+          </Typography>
         </form>
       </div>
     </Container>
-  );
+  )
 }

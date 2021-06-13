@@ -4,13 +4,13 @@ import "firebase/firestore";
 import "firebase/storage";
 
 const app = firebase.initializeApp({
-  apiKey: "AIzaSyAfBxFxts8k2H9KfSfRIFitTkjo9zdVmfc",
-  authDomain: "review-company-test.firebaseapp.com",
-  projectId: "review-company-test",
-  storageBucket: "review-company-test.appspot.com",
-  messagingSenderId: "1081481665515",
-  appId: "1:1081481665515:web:ac894d8a19fa63e4ba17ae",
-  measurementId: "G-36ZVYZ37K4"
+    apiKey: "AIzaSyAfBxFxts8k2H9KfSfRIFitTkjo9zdVmfc",
+    authDomain: "review-company-test.firebaseapp.com",
+    projectId: "review-company-test",
+    storageBucket: "review-company-test.appspot.com",
+    messagingSenderId: "1081481665515",
+    appId: "1:1081481665515:web:ac894d8a19fa63e4ba17ae",
+    measurementId: "G-36ZVYZ37K4"
 });
 
 export const auth = app.auth();
