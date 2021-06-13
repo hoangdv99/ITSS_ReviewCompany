@@ -7,9 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import CreateIcon from '@material-ui/icons/Create';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 import { firestore } from '../../../config/firebase';
 
@@ -39,10 +36,6 @@ export default function ListTable() {
         fetchUsers()
     }, [])
 
-    const handleModify = (admin) => {
-        console.log(admin)
-    }
-
     return (
         <TableContainer component={Paper}>
             <Table 
@@ -51,37 +44,17 @@ export default function ListTable() {
             >
                 <TableHead>
                     <TableRow>
-                        <TableCell>No.</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Email</TableCell>
-                        <TableCell> </TableCell>
+                        <TableCell align="center">No.</TableCell>
+                        <TableCell align="center">Name</TableCell>
+                        <TableCell align="center">Email</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {users.map((user, index) => (
                         <TableRow key={index}>
-                            <TableCell align="left">{index + 1}</TableCell>
-                            <TableCell scope="row">{user.name}</TableCell>
-                            <TableCell>{user.email}</TableCell>
-                            <TableCell align="right">
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.button}
-                                    startIcon={<CreateIcon />}
-                                    onClick={() => handleModify(index)}
-                                >
-                                    Modify
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    className={classes.button}
-                                    startIcon={<DeleteIcon />}
-                                >
-                                    Delete
-                                </Button>
-                            </TableCell>
+                            <TableCell align="center">{index + 1}</TableCell>
+                            <TableCell align="center">{user.name}</TableCell>
+                            <TableCell align="center">{user.email}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
