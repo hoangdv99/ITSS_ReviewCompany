@@ -35,9 +35,9 @@ export default function ListCompany() {
         name: "",
         address: "",
         site: "",
-        type: "",
+        type: "others",
         rating: 0,
-        logo: "",
+        logo: "https://bitly.com.vn/i76yfb",
         is_active: 1,
         totalReview:0,
     }

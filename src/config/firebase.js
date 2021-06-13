@@ -96,3 +96,19 @@ export const removeCompany = async (item) => {
     console.log(err);
   }
 };
+
+//loicd - validation for company
+export const validateAddCompany = async (name, site) => {
+    const all = firestore.collection("companies").get();
+    let ck = false;
+    try{
+        (await all).forEach((item)=>{
+            if(name === item.data().name && site === item.data().site){
+                ck = true;
+            }
+        })
+    } catch (err) {
+        console.log(err);
+    }
+    return ck;
+}
