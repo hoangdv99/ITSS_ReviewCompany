@@ -7,10 +7,12 @@ import React, { useEffect, useState } from "react";
 import FeaturedPost from "../../components/Company/FeaturedPost";
 import Footer from "../../components/Company/Footer";
 import Header from "../../components/Company/Header";
+import AdminHeader from '../../components/Admin/Header';
 import MainFeaturedPost from "../../components/Company/MainFeaturedPost";
 import Search from "../../components/Company/Search";
 import { getCompaniesActive } from "../../config/firebase";
 import useCoStorage from "../../hooks/coStorage";
+import { useAuth } from "../../contexts/AuthContext";
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -35,7 +37,7 @@ const mainFeaturedPost = {
   title: "Title of a longer featured blog post",
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: "https://source.unsplash.com/random",
+  image: "cover.png",
   imgText: "main image description",
   linkText: "Continue reading…",
 };
@@ -48,6 +50,7 @@ function ListCompany() {
   const [listCompany, setListCompany] = React.useState([]);
   const [companies, addCompany, updateCompany, removeCompany, companiesActive] =
     useCoStorage();
+  const { currentUser } = useAuth();
   const handleChange = (event, value) => {
     setPage(value);
     console.log(value);
@@ -102,17 +105,20 @@ function ListCompany() {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header title="REVIEW COMPANY" sections={sections} />
+        {currentUser
+          ? (<AdminHeader username={currentUser.email} />)
+          : (<Header />)
+        }
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Search search={handleSearch} sort={handleSort} />
-          <Grid container spacing={5} className={classes.mainGrid}>
+          <Grid className={classes.mainGrid}>
             <Grid>
               <Pagination
                 count={
                   parseInt(companiesActive.length / limitPerPage) *
                     limitPerPage <
-                  companiesActive.length
+                    companiesActive.length
                     ? parseInt(companiesActive.length / limitPerPage) + 1
                     : parseInt(companiesActive.length / limitPerPage)
                 }
@@ -134,7 +140,7 @@ function ListCompany() {
                 count={
                   parseInt(companiesActive.length / limitPerPage) *
                     limitPerPage <
-                  companiesActive.length
+                    companiesActive.length
                     ? parseInt(companiesActive.length / limitPerPage) + 1
                     : parseInt(companiesActive.length / limitPerPage)
                 }

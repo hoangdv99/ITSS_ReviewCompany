@@ -12,6 +12,7 @@ import { Grid } from "@material-ui/core";
 import ModalCompany from "../Admin/ModalCompany";
 import useCoStorage from "../../hooks/coStorage";
 import ModalRequestNewCompany from "./ModalRequestNewCompany";
+import { useAuth } from "../../contexts/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbarTitle: {
     flex: 1,
+    fontWeight: 600,
+    textShadow: "3px 0px 2px gray",
+    fontSize: 40
   },
   toolbarSecondary: {
     justifyContent: "space-between",
@@ -31,12 +35,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header(props) {
+  const {currentUser} = useAuth();
   const classes = useStyles();
   const { sections, title } = props;
   const history = useHistory();
   const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
-  function handleSignIn() {
-    history.push("/signin");
+
+  function handleRedirect() {
+    history.push("/admin/admin-list");
   }
 
   const company = {
@@ -65,7 +71,7 @@ export default function Header(props) {
           noWrap
           className={classes.toolbarTitle}
         >
-          {title}
+          良いカンパ
         </Typography>
         {/* <IconButton>
                     <SearchIcon />
@@ -75,9 +81,6 @@ export default function Header(props) {
           title="New"
           onAddSubmit={handleAdd}
         />
-        <Button variant="outlined" size="small" onClick={handleSignIn}>
-          Sign in
-        </Button>
       </Toolbar>
     </React.Fragment>
   );

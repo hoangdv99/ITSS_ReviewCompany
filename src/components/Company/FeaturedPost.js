@@ -11,9 +11,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import GradeIcon from "@material-ui/icons/Grade";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 
-import {Button, CardActions} from "@material-ui/core";
+import { Button, CardActions } from "@material-ui/core";
 import ModalCompany from "../Admin/ModalCompany";
 import RemoveIcon from "@material-ui/icons/DeleteOutline";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   card: {
@@ -32,49 +33,52 @@ const useStyles = makeStyles({
   },
   title: {
     display: 'flex',
-    paddingRight:10,
+    paddingRight: 10,
   },
   oneCompany: {
     backgroundPosition: 'center',
-    marginTop:10,
-    marginBottom:10,
-    width:window.innerWidth * 0.9
+    marginTop: 10,
+    marginBottom: 10,
+    width: window.innerWidth * 0.9
   }
 });
 export default function FeaturedPost(props) {
   const classes = useStyles();
-  const company  = props.company;
-  const totalStar = [0,0,0,0,0];
+  const company = props.company;
+  const totalStar = [0, 0, 0, 0, 0];
   const fillStar = (stars) => {
-    for(let i = 0; i < stars; i++){
+    for (let i = 0; i < stars; i++) {
       totalStar[i] = 1;
     }
   }
   const resetStar = () => {
-    totalStar.map(i=>0);
+    totalStar.map(i => 0);
   }
 
   const handleRemove = async (item) => {
     await props.onRemove(item)
   }
- const linkParam = '/company/'+company.id;
+  const linkParam = '/company/' + company.id;
   return (
-      <Grid item xs={12} className={classes.oneCompany}>
-        <Card className={classes.card}>
-          <CardActionArea component="a" href={linkParam} className={classes.cardActionArea}>
-            <CardMedia
-                className={classes.cardMedia}
-                image={company.logo !== "" ? company.logo : "https://source.unsplash.com/random"}
-                title={company.name + "-text"} />
+    <Grid item xs={12} className={classes.oneCompany}>
+      <Card className={classes.card}>
+
+        <CardActionArea component="a" className={classes.cardActionArea}>
+          <CardMedia
+            className={classes.cardMedia}
+            image={company.logo !== "" ? company.logo : "https://source.unsplash.com/random"}
+            title={company.name + "-text"} />       
             <CardContent className={classes.companyDetails}>
-              <Typography className={classes.title} component="h2" variant="h5">
-                {company.name}<b>({company.totalReview})</b>
-              </Typography>
+              <Link to={linkParam} style={{ textDecoration: 'none', color: '#1188b8' }}>
+                <Typography className={classes.title} component="h2" variant="h5">
+                  {company.name}<b>({company.totalReview})</b>
+                </Typography>
+              </Link>
               {fillStar(parseInt(company.rating))}
               {totalStar.map(
-                  i=>(
-                      i == 1? <GradeIcon style={{color:'yellow'}}/>:<StarOutlineIcon/>
-                  )
+                i => (
+                  i == 1 ? <GradeIcon style={{ color: 'yellow' }} /> : <StarOutlineIcon />
+                )
               )}
               {resetStar()}
               <Typography variant="subtitle1" color="textSecondary">
@@ -85,8 +89,8 @@ export default function FeaturedPost(props) {
               </Typography>
             </CardContent>
           </CardActionArea>
-        </Card>
-      </Grid>
+      </Card>
+    </Grid >
   );
 }
 

@@ -1,13 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
 import {CssBaseline, Container, Breadcrumbs, Link, Grid, Typography} from '@material-ui/core';
-
-import Header from '../../../components/Admin/Header';
+import AdminHeader from '../../../components/Admin/Header';
 import ModalCompany from '../../../components/Admin/ModalCompany';
 import Company from '../../../components/Admin/Company';
 import Footer from '../../../components/Company/Footer';
-
+import { useAuth } from '../../../contexts/AuthContext';
 import useCoStorage from '../../../hooks/coStorage';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ListCompany() {
     const classes = useStyles();
-
+    const {currentUser} = useAuth();
     const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
 
     const company = {
@@ -56,8 +54,7 @@ export default function ListCompany() {
         <React.Fragment>
             <CssBaseline />
             <Container className={classes.mainPage}>
-                <Header title="REVIEW COMPANY" username = "admin1" />
-
+                <AdminHeader />
                 <Grid container className={classes.oneRow}>
                     <Grid item xs={8}>
                         <Breadcrumbs aria-label="breadcrumb">

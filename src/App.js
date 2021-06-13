@@ -23,12 +23,11 @@ function App() {
             <Route exact path="/" component={ListCompany} />
             {/* admin */}
             <Route exact path="/admin/companies" component={adminListCompany} />
-            <Route exact path="/companies" component={ListCompany} />
             <Route exact path="/addCompany" component={RequestAddCompany} />
             {/* thang */}
             <Route exact path="/signin" component={signIn} />
             <PrivateRoute exact path="/admin/admin-list" component={AdminList} />
-            <PrivateRoute exact path="/admin/request-list" component={RequestAddCompanyList} />
+            <PrivateRoute exact path="/admin/company-request-list" component={RequestAddCompanyList} />
           </Switch>
         </AuthProvider>
       </Router>
