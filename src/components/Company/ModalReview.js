@@ -47,10 +47,10 @@ const types = [
    1,2,3,4,5
 ]
 
-export default function ModalReview(props) {
+export default function ModalReview({company, reviews, setReviews}) {
     const classes = useStyles();
     const [reviewCompany, setReviewCompany] = useState({
-        companyId:props.company.id,
+        companyId: company.id,
         reviewer:'',
         position:'',
         text:'',
@@ -65,6 +65,14 @@ export default function ModalReview(props) {
         setOpen(true);
     };
     const handleClose = () => {
+        setReviewCompany({
+            companyId:company.id,
+            reviewer:'',
+            position:'',
+            text:'',
+            rating:'',
+            created_at:moment().format(),
+        })
         setOpen(false);
     };
     const handleChange = (event) => {
@@ -91,16 +99,17 @@ export default function ModalReview(props) {
         try {
             const model = firestore.collection("reviews");
             await model.add(item);
+            setReviews([...reviews, item]);
         } catch (err) {
             console.log(err);
         }
     };
     const updateCompanyRating = async () => {
         try {
-            const model = firestore.collection("companies").doc(props.company.id);
+            const model = firestore.collection("companies").doc(company.id);
             await model.update({
-                "rating":(props.company.rating*props.company.totalReview+reviewCompany.rating)/(props.company.totalReview+1),
-                "totalReview":props.company.totalReview + 1
+                "rating":(company.rating*company.totalReview+reviewCompany.rating)/(company.totalReview+1),
+                "totalReview":company.totalReview + 1
             });
         } catch (err) {
             console.log(err);
@@ -110,7 +119,7 @@ export default function ModalReview(props) {
         addReview({item:reviewCompany});
         updateCompanyRating();
         setReviewCompany({
-            companyId:props.company.id,
+            companyId:company.id,
             reviewer:'',
             position:'',
             text:'',

@@ -59,6 +59,7 @@ export default function ModalRequestNewCompany(props) {
     };
 
     const handleClose = () => {
+        setCompany(props.company);
         setOpen(false);
     };
 
@@ -99,7 +100,7 @@ export default function ModalRequestNewCompany(props) {
             ...company,
             logo: urlLogo,
         });
-        setCompany({})
+        setCompany(props.company);
         setOpen(false);
         setOpenSnackBar(true);
     }
