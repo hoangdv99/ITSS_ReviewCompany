@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import RatingCount from '../../components/Feedback/RatingCount';
 import ReviewCard from '../../components/Feedback/ReviewCard';
-import Pagination from '@material-ui/lab/Pagination';
 import {firestore} from '../../config/firebase';
 
 const useStyles = makeStyles(theme => ({

@@ -9,7 +9,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import ListCompany from "./routes/listCompany/ListCompany";
 import RequestAddCompany from "./routes/requestAddCompany/RequestAddCompany";
 // import admin route
-import adminListCompany from "./routes/admin/listCompany/ListCompany";
+import adminListCompany from "./routes/admin/companyList/CompanyList";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute"
 
 function App() {
@@ -18,16 +18,14 @@ function App() {
       <Router>
         <AuthProvider>
           <Switch>
-            {/* master */}
-            <Route exact path='/company/:companyId' component={CompanyDetail} />
             <Route exact path="/" component={ListCompany} />
-            {/* admin */}
-            <Route exact path="/admin/companies" component={adminListCompany} />
+            <Route exact path="/sign-in" component={signIn} />
+            <Route exact path='/company/:companyId' component={CompanyDetail} />
             <Route exact path="/addCompany" component={RequestAddCompany} />
-            {/* thang */}
-            <Route exact path="/signin" component={signIn} />
+            {/* admin */}
+            <PrivateRoute exact path="/admin/companies" component={adminListCompany} />
             <PrivateRoute exact path="/admin/admin-list" component={AdminList} />
-            <PrivateRoute exact path="/admin/company-request-list" component={RequestAddCompanyList} />
+            <PrivateRoute exact path="/admin/company-request-list" component={RequestAddCompanyList} />            
           </Switch>
         </AuthProvider>
       </Router>

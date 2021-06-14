@@ -1,11 +1,7 @@
-import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import {Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
+import { useHistory } from 'react-router-dom';
 import React, { useState } from "react";
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +37,7 @@ function Search(props) {
   const { search, sort } = props;
   const [searchValue, setSearchValue] = useState("");
   const [sortValue, setSortValue] = useState("");
+  const history = useHistory();
 
   function handleChange(e) {
     setSortValue(e.target.value);
@@ -67,23 +64,25 @@ function Search(props) {
           検索
         </Button>
       </div>
-      <FormControl
-        variant="outlined"
-        className={classes.formControl}
-        size="small"
-      >
-        <InputLabel id="demo-simple-select-outlined-label">評価</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={sortValue}
-          onChange={handleChange}
-          label="評価"
+      { history.location.pathname !== '/admin/companies' &&
+        <FormControl
+          variant="outlined"
+          className={classes.formControl}
+          size="small"
         >
-          <MenuItem value={"asc"}>高い</MenuItem>
-          <MenuItem value={"desc"}>低い</MenuItem>
-        </Select>
-      </FormControl>
+          <InputLabel id="demo-simple-select-outlined-label">評価</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={sortValue}
+            onChange={handleChange}
+            label="評価"
+          >
+            <MenuItem value={"asc"}>高い</MenuItem>
+            <MenuItem value={"desc"}>低い</MenuItem>
+          </Select>
+        </FormControl>
+      }
     </form>
   );
 }

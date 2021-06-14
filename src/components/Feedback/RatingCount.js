@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import Box from '@material-ui/core/Box';
+import {Card, CardContent, CardHeader, Box, Button, MenuItem, MenuList} from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import { MenuItem, MenuList } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {

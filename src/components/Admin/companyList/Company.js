@@ -56,7 +56,7 @@ export default function Company(props) {
             <CardActionArea component="a" href="#" className={classes.cardActionArea}>
                 <CardMedia 
                     className={classes.cardMedia}
-                    image={company.logo !== "" ? company.logo : "https://bitly.com.vn/i76yfb"}
+                    image={company.logo !== "" ? company.logo : "sample-logo.png"}
                     title={company.name + "-text"} />
                 <CardContent className={classes.companyDetails}>
                     <Typography className={classes.title} component="h2" variant="h5">

@@ -1,13 +1,10 @@
 import React from 'react';
 import {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/AddCircleOutline';
 import DoneIcon from '@material-ui/icons/Done';
 import CancleIcon from '@material-ui/icons/CancelOutlined';
-import ModifyIcon from '@material-ui/icons/EditOutlined';
-import {Modal, Button, Paper, Typography, Input, Grid, Select, MenuItem, CardActions, CardMedia} from '@material-ui/core';
-import Snackbar from '@material-ui/core/Snackbar';
-import {firestore, uploadImage} from '../../config/firebase';
+import {Modal, Button, Paper, Typography, Input, Grid, Select, MenuItem, CardActions, Snackbar} from '@material-ui/core';
+import {firestore} from '../../config/firebase';
 import Alert from '@material-ui/lab/Alert';
 import CreateIcon from "@material-ui/icons/Create";
 import moment from 'moment';
