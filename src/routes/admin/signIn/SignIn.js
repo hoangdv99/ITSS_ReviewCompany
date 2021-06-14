@@ -99,7 +99,7 @@ export default function SignUp() {
 						value={state.email}
 						onChange={handleChange}
 						validators={['required', 'isEmail']}
-						errorMessages={['Email is required', 'This email is not valid']}
+						errorMessages={['メールが必要です！', 'このメールは無効です']}
 					/>
 					<TextValidator
 						variant='outlined'
@@ -107,12 +107,12 @@ export default function SignUp() {
 						required
 						fullWidth
 						label='パスワード'
-						type={state.showPassword ? 'text' : 'password'}
+						type='password'
 						name="password"
 						value={state.password}
 						onChange={handleChange}
 						validators={['required']}
-						errorMessages={['Passsword is required']}
+						errorMessages={['パスワードが必要です']}
 					/>
 					<Button
 						type='submit'

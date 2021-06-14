@@ -49,12 +49,6 @@ export default function AdminList() {
 				{/*Can fix currentUser khi refresh */}
 				<Grid container className={classes.oneRow}>
 					<Grid item xs={8}>
-						{/* <Breadcrumbs aria-label="breadcrumb">
-              <Link color="inherit" href="/admin">
-                admin
-              </Link>
-              <Typography color="textPrimary">admins</Typography>
-            </Breadcrumbs> */}
 					</Grid>
 					<Grid item xs={4} className={classes.addBtn}>
 						<AddUserModal users={users} setUsers={setUsers} />

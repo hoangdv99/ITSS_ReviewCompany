@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
 	Typography,
@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { firestore } from '../../../config/firebase';
 
 const useStyles = makeStyles({
 	center: {
@@ -43,58 +42,11 @@ const useStyles = makeStyles({
 	},
 });
 
-export default function AddRequest() {
+export default function AddRequest({companies, handleAccept, handleReject}) {
 	const classes = useStyles();
-
-	const [companies, setCompanies] = useState([]);
-	var companyNumber = companies.length;
-
-	const fetchCompanies = async () => {
-		const companiesRef = firestore.collection('companies');
-		const snapshot = await companiesRef.where('is_active', '==', 0).get();
-		snapshot.docs.forEach((company) => {
-			setCompanies((companies) => [
-				...companies,
-				{ ...company.data(), id: company.id },
-			]);
-		});
-	};
-
-	useEffect(() => {
-		fetchCompanies();
-	}, []);
-
-	async function handleAccept(id) {
-		try {
-			await firestore.collection('companies').doc(id).update({
-				is_active: 1,
-			});
-			document.getElementById('company-card-' + id).remove();
-			companyNumber -= 1;
-		} catch (err) {
-			console.log('Something went wrong');
-		}
-	}
-
-	async function handleReject(id) {
-		try {
-			await firestore.collection('companies').doc(id).delete();
-			document.getElementById('company-card-' + id).remove();
-			companyNumber -= 1;
-		} catch (err) {
-			console.log('Something went wrong');
-		}
-	}
 
 	return (
 		<Grid container className={classes.oneRow}>
-			{companyNumber == 0 && (
-				<Grid className={classes.center}>
-					<Typography align='center' variant='h4' color='textSecondary'>
-						現在企業追加リクエストがありません。
-					</Typography>
-				</Grid>
-			)}
 			{companies.map((company) => (
 				<Grid
 					item
@@ -110,7 +62,7 @@ export default function AddRequest() {
 								image={
 									company.logo !== ''
 										? company.logo
-										: '../../../..//../public/no_imega.png'
+										: 'no_imega.png'
 								}
 								title={company.name + '-text'}
 							/>
@@ -136,7 +88,7 @@ export default function AddRequest() {
 								variant='contained'
 								color='primary'
 								fontSize='large'
-								onClick={() => handleAccept(company.id)}
+								onClick={() => handleAccept(company)}
 							>
 								<AddCircleIcon />
 							</IconButton>
@@ -144,7 +96,7 @@ export default function AddRequest() {
 								variant='contained'
 								color='secondary'
 								fontSize='large'
-								onClick={() => handleReject(company.id)}
+								onClick={() => handleReject(company)}
 							>
 								<CancelIcon />
 							</IconButton>
