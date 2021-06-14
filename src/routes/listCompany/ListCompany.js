@@ -42,29 +42,42 @@ const mainFeaturedPost = {
   linkText: "Continue reading…",
 };
 
-function ListCompany() {
+export default function ListCompany() {
   const classes = useStyles();
-  const limitPerPage = 10;
+  const limitPerPage = 5;
   const [page, setPage] = React.useState(1);
+  const [numberPage, setNumberPage] = React.useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [listCompany, setListCompany] = React.useState([]);
   const [companies, addCompany, updateCompany, removeCompany, companiesActive] =
-    useCoStorage();
+      useCoStorage();
+  const [listCompanyUpdate, setListCompanyUpdate] = React.useState([]);
   const { currentUser } = useAuth();
   const handleChange = (event, value) => {
     setPage(value);
     console.log(value);
   };
-
   useEffect(() => {
+    console.log(1);
+    setListCompanyUpdate(companiesActive);
+  }, [companiesActive]);
+  useEffect(() => {
+    console.log(2);
     setListCompany(
-      companiesActive.slice(
+        listCompanyUpdate.slice(
         (page - 1) * limitPerPage,
         (page - 1) * limitPerPage + limitPerPage
       )
     );
-  }, [page, companiesActive]);
-
+  }, [page, listCompanyUpdate]);
+  useEffect(()=>{
+    console.log(3);
+    setNumberPage(  parseInt(listCompanyUpdate.length / limitPerPage) *
+    limitPerPage <
+    listCompanyUpdate.length
+        ? parseInt(listCompanyUpdate.length / limitPerPage) + 1
+        : parseInt(listCompanyUpdate.length / limitPerPage))
+  },[listCompanyUpdate])
   async function handleSearch(keyword) {
     try {
       setSearchKeyword(keyword);
@@ -72,7 +85,7 @@ function ListCompany() {
       const listFilteredCompanies = newListCompany.filter((company) =>
         company.name.toLowerCase().includes(keyword.toLowerCase())
       );
-      setListCompany(listFilteredCompanies);
+      setListCompanyUpdate(listFilteredCompanies);
     } catch (error) {
       console.log(error);
     }
@@ -95,7 +108,7 @@ function ListCompany() {
         );
       }
       listSortedCompanies.sort(sortRating);
-      setListCompany(listSortedCompanies);
+      setListCompanyUpdate(listSortedCompanies);
     } catch (error) {
       console.log(error);
     }
@@ -115,13 +128,7 @@ function ListCompany() {
           <Grid className={classes.mainGrid}>
             <Grid>
               <Pagination
-                count={
-                  parseInt(companiesActive.length / limitPerPage) *
-                    limitPerPage <
-                    companiesActive.length
-                    ? parseInt(companiesActive.length / limitPerPage) + 1
-                    : parseInt(companiesActive.length / limitPerPage)
-                }
+                count={numberPage}
                 variant="outlined"
                 shape="rounded"
                 page={page}
@@ -137,13 +144,7 @@ function ListCompany() {
                   />
                 ))}
               <Pagination
-                count={
-                  parseInt(companiesActive.length / limitPerPage) *
-                    limitPerPage <
-                    companiesActive.length
-                    ? parseInt(companiesActive.length / limitPerPage) + 1
-                    : parseInt(companiesActive.length / limitPerPage)
-                }
+                count={numberPage}
                 variant="outlined"
                 shape="rounded"
                 page={page}
@@ -157,4 +158,4 @@ function ListCompany() {
     </React.Fragment>
   );
 }
-export default ListCompany;
+
