@@ -1,14 +1,12 @@
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
+import {Container, CssBaseline, Grid} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import React, { useEffect, useState } from "react";
-import FeaturedPost from "../../components/Company/FeaturedPost";
+import FeaturedPost from "../../components/Company/FeaturedCompany";
 import Footer from "../../components/Company/Footer";
 import Header from "../../components/Company/Header";
 import AdminHeader from '../../components/Admin/Header';
-import MainFeaturedPost from "../../components/Company/MainFeaturedPost";
+import MainFeaturedPost from "../../components/Company/MainFeaturedCompany";
 import Search from "../../components/Company/Search";
 import { getCompaniesActive } from "../../config/firebase";
 import useCoStorage from "../../hooks/coStorage";
@@ -44,7 +42,7 @@ const mainFeaturedPost = {
 
 function ListCompany() {
   const classes = useStyles();
-  const limitPerPage = 10;
+  const limitPerPage = 5;
   const [page, setPage] = React.useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [listCompany, setListCompany] = React.useState([]);
@@ -53,7 +51,6 @@ function ListCompany() {
   const { currentUser } = useAuth();
   const handleChange = (event, value) => {
     setPage(value);
-    console.log(value);
   };
 
   useEffect(() => {

@@ -8,7 +8,7 @@ import ModifyIcon from '@material-ui/icons/EditOutlined';
 import {Modal, Button, Paper, Typography, Input, Grid, Select, MenuItem, CardActions, CardMedia} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
-import {uploadImage, validateAddCompany} from '../../config/firebase';
+import {uploadImage} from '../../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
   modalStyle: {
@@ -55,8 +55,9 @@ const initCompany = {
   site: "",
   type: "others",
   rating: 0,
-  logo: "https://bitly.com.vn/i76yfb",
+  logo: "sample-logo.png",
   is_active: 1,
+  totalReview:0,
 }
 
 export default function ModalCompany(props) {
@@ -94,22 +95,25 @@ export default function ModalCompany(props) {
     }
   }
 
-  const checkAllValidate = async () => {
-    if(company.name === ""){
-      setError('Name is must be filled!');
+  const checkAllValidate = () => {
+    if(company.name === "" || company.site === ""){
+      setError('Name and site can not null!');
       return false;
-    }else if(await validateAddCompany(company.name, company.site)){
-      setError('Name and site are existed!');
+    }else if(props.onCheckValidate('name', company.name)){
+      setError('Name exist!');
+      return false;
+    }else if(props.onCheckValidate('site', company.site)){
+      setError('Site exist!');
       return false;
     }else{
       return true;
     }
   }
 
-  const handleSumit = async () => {
+  const handleSumit = () => {
     setError('');
     if(props.title === "New"){
-      if(await checkAllValidate()){
+      if(checkAllValidate()){
         props.onAddSubmit(company);
         setCompany(initCompany);
         setOpen(false);
@@ -203,7 +207,7 @@ export default function ModalCompany(props) {
                           <div>
                             <CardMedia 
                               className={classes.companyLogo}
-                              image={company.logo !== "" ? company.logo : "https://bitly.com.vn/i76yfb"}
+                              image={company.logo !== "" ? company.logo : "sample-logo.png"}
                               title={company.name + "-text"}
                             />
                             <Input 

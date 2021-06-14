@@ -1,23 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import {Card, CardHeader, CardContent, Typography, Box} from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import moment from 'moment'
-
-
-// import CardActions from '@material-ui/core/CardActions';
-// import Collapse from '@material-ui/core/Collapse';
-// import IconButton from '@material-ui/core/IconButton';
-// import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
-// import ThumbDownAltOutlinedIcon from '@material-ui/icons/ThumbDownAltOutlined';
-// import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import clsx from 'clsx';
-// import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -2,18 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import {Toolbar, Grid, Button, Tabs, Tab, Menu, MenuItem} from '@material-ui/core/';
 import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/AddCircle';
 import UserIcon from '@material-ui/icons/AccountCircle'
 import DropDownIcon from '@material-ui/icons/ArrowDropDown';
-import CompanyIcon from '@material-ui/icons/BuildOutlined'
+import CompanyIcon from '@material-ui/icons/BusinessOutlined'
 import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +55,6 @@ export default function Header(props) {
     };
 
     const handleChange = (event, newValue) => {
-        // setValue(newValue);
         history.push(newValue);
     };
 
@@ -78,11 +71,6 @@ export default function Header(props) {
         <React.Fragment>
             <Toolbar className={classes.toolbar}>
                 < Grid container>
-                    {/* <Grid item xs = {1} className={classes.homeLogo}>
-                        <Link component="button" variant="body2" to="/companies">
-                            Home
-                        </Link>
-                    </Grid> */}
                     <Grid item xs = {9}>
                         <Tabs 
                             value={history.location.pathname} 

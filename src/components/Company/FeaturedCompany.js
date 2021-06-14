@@ -1,19 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-
+import {Typography, Grid, Card, CardActionArea, CardContent, CardMedia} from '@material-ui/core/';
 import GradeIcon from "@material-ui/icons/Grade";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
-
-import { Button, CardActions } from "@material-ui/core";
-import ModalCompany from "../Admin/ModalCompany";
-import RemoveIcon from "@material-ui/icons/DeleteOutline";
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -42,7 +32,7 @@ const useStyles = makeStyles({
     width: window.innerWidth * 0.9
   }
 });
-export default function FeaturedPost(props) {
+export default function FeaturedCompany(props) {
   const classes = useStyles();
   const company = props.company;
   const totalStar = [0, 0, 0, 0, 0];
@@ -55,9 +45,6 @@ export default function FeaturedPost(props) {
     totalStar.map(i => 0);
   }
 
-  const handleRemove = async (item) => {
-    await props.onRemove(item)
-  }
   const linkParam = '/company/' + company.id;
   return (
     <Grid item xs={12} className={classes.oneCompany}>
@@ -66,7 +53,7 @@ export default function FeaturedPost(props) {
         <CardActionArea component="a" className={classes.cardActionArea}>
           <CardMedia
             className={classes.cardMedia}
-            image={company.logo !== "" ? company.logo : "https://source.unsplash.com/random"}
+            image={company.logo !== "" ? company.logo : "sample-logo.png"}
             title={company.name + "-text"} />       
             <CardContent className={classes.companyDetails}>
               <Link to={linkParam} style={{ textDecoration: 'none', color: '#1188b8' }}>
@@ -94,6 +81,6 @@ export default function FeaturedPost(props) {
   );
 }
 
-FeaturedPost.propTypes = {
+FeaturedCompany.propTypes = {
   post: PropTypes.object,
 };

@@ -1,10 +1,5 @@
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
+import {Breadcrumbs, Container, CssBaseline, Grid, Link, Typography} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import React from "react";
 import AddUserModal from "../../../components/AddUserModal/AddUserModal";
 import ListTable from "../../../components/Admin/adminList/ListTable";

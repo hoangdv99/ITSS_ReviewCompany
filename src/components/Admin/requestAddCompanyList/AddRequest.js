@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Grid, Card, CardActionArea, CardContent, CardActions, IconButton, CardMedia, Grow } from '@material-ui/core';
+import { Typography, Grid, Card, CardActionArea, CardContent, CardActions, IconButton, CardMedia} from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { firestore } from '../../../config/firebase';
