@@ -29,13 +29,15 @@ const useStyles = makeStyles((theme) => ({
 export default function CompanyList() {
     const classes = useStyles();
     const {currentUser} = useAuth();
-    const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
+    const [companies, addCompany, updateCompany, removeCompany, companiesActive] =
+        useCoStorage();
 
     const limitPerPage = 5;
     const [page, setPage] = React.useState(1);
     const [searchKeyword, setSearchKeyword] = useState("");
     const [listCompany, setListCompany] = React.useState([]);
-
+    const [listCompanyUpdate, setListCompanyUpdate] = React.useState([]);
+    const [numberPage, setNumberPage] = React.useState(1);
     const company = {
         name: "",
         address: "",
@@ -50,24 +52,32 @@ export default function CompanyList() {
     const handleChangePage = (event, value) => {
         setPage(value);
     };
-
+    useEffect(()=>{
+       setListCompanyUpdate(companiesActive);
+    },[companiesActive])
     useEffect(() => {
         setListCompany(
-          companies.slice(
+            listCompanyUpdate.slice(
             (page - 1) * limitPerPage,
             (page - 1) * limitPerPage + limitPerPage
           )
         );
-    }, [page, companies]);
-
+    }, [page, listCompanyUpdate]);
+     useEffect(()=>{
+        setNumberPage(  parseInt(listCompanyUpdate.length / limitPerPage) *
+        limitPerPage <
+        listCompanyUpdate.length
+            ? parseInt(listCompanyUpdate.length / limitPerPage) + 1
+            : parseInt(listCompanyUpdate.length / limitPerPage))
+    },[listCompanyUpdate])
     const handleSearch = (keyword) => {
         try {
           setSearchKeyword(keyword);
-          const newListCompany = companies;
+          const newListCompany = companiesActive;
           const listFilteredCompanies = newListCompany.filter((company) =>
             company.name.toLowerCase().includes(keyword.toLowerCase())
           );
-          setListCompany(listFilteredCompanies);
+            setListCompanyUpdate(listFilteredCompanies);
         } catch (error) {
           console.log(error);
         }
@@ -107,13 +117,7 @@ export default function CompanyList() {
                         <Company key={i} company={co} onUpdate={updateCompany} onRemove={removeCompany}/>
                     ))}
                     <Pagination
-                        count={
-                        parseInt(companies.length / limitPerPage) *
-                            limitPerPage <
-                            companies.length
-                            ? parseInt(companies.length / limitPerPage) + 1
-                            : parseInt(companies.length / limitPerPage)
-                        }
+                        count={numberPage}
                         variant="outlined"
                         shape="rounded"
                         page={page}

@@ -56,11 +56,9 @@ export default function ListCompany() {
     console.log(value);
   };
   useEffect(() => {
-    console.log(1);
     setListCompanyUpdate(companiesActive);
   }, [companiesActive]);
   useEffect(() => {
-    console.log(2);
     setListCompany(
         listCompanyUpdate.slice(
         (page - 1) * limitPerPage,
@@ -69,7 +67,6 @@ export default function ListCompany() {
     );
   }, [page, listCompanyUpdate]);
   useEffect(()=>{
-    console.log(3);
     setNumberPage(  parseInt(listCompanyUpdate.length / limitPerPage) *
     limitPerPage <
     listCompanyUpdate.length
