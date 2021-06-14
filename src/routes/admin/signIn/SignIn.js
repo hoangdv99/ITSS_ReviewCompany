@@ -1,15 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+import { Link, useHistory } from 'react-router-dom';
 import {
 	Avatar,
-	Button,
-	CssBaseline,
-	TextField,
-	Container,
-	Typography,
+	Button, Container, CssBaseline, Typography,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 import { useAuth } from '../../../contexts/AuthContext';
 
@@ -36,19 +33,36 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
 	const classes = useStyles();
 
-	const emailRef = useRef();
-	const passwordRef = useRef();
+	const [state, setState] = React.useState({
+		email: "",
+		password: "",
+	})
 	const { signIn } = useAuth();
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
+
+	useEffect(() => {
+		return () => {
+		  setState({});
+		};
+	}, []);
+	
+
+	function handleChange(evt) {
+		const value = evt.target.value;
+		setState({
+			...state,
+			[evt.target.name]: value
+		});
+	}
 
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
 			setError('');
 			setLoading(true);
-			await signIn(emailRef.current.value, passwordRef.current.value);
+			await signIn(state.email, state.password);
 			history.push('/admin/admin-list');
 		} catch (e) {
 			setError('Fail to sign in');
@@ -71,30 +85,34 @@ export default function SignUp() {
 						{error}
 					</Alert>
 				)}
-				<form className={classes.form} noValidate onSubmit={handleSubmit}>
-					<TextField
+				<ValidatorForm
+					onSubmit={handleSubmit}
+					onError={errors => console.log(errors)}
+				>
+					<TextValidator
 						variant='outlined'
 						margin='normal'
 						required
 						fullWidth
-						id='email'
-						label='メールアドレス'
-						name='email'
-						autoComplete='email'
-						autoFocus
-						inputRef={emailRef}
-					/>
-					<TextField
-						variant='outlined'
-						margin='normal'
-						required
-						fullWidth
-						name='password'
 						label='パスワード'
-						type='password'
-						id='password'
-						autoComplete='current-password'
-						inputRef={passwordRef}
+						name="email"
+						value={state.email}
+						onChange={handleChange}
+						validators={['required', 'isEmail']}
+						errorMessages={['Email is required', 'This email is not valid']}
+					/>
+					<TextValidator
+						variant='outlined'
+						margin='normal'
+						required
+						fullWidth
+						label='パスワード'
+						type={state.showPassword ? 'text' : 'password'}
+						name="password"
+						value={state.password}
+						onChange={handleChange}
+						validators={['required']}
+						errorMessages={['Passsword is required']}
 					/>
 					<Button
 						type='submit'
@@ -111,7 +129,7 @@ export default function SignUp() {
 						<Link to='/'>ホームページ</Link>
 						に戻ってください
 					</Typography>
-				</form>
+				</ValidatorForm>
 			</div>
 		</Container>
 	);
