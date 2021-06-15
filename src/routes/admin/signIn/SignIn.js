@@ -47,7 +47,6 @@ export default function SignUp() {
 		  setState({});
 		};
 	}, []);
-	
 
 	function handleChange(evt) {
 		const value = evt.target.value;
@@ -111,8 +110,8 @@ export default function SignUp() {
 						name="password"
 						value={state.password}
 						onChange={handleChange}
-						validators={['required']}
-						errorMessages={['パスワードが必要です']}
+						validators={['required','minStringLength: 6']}
+						errorMessages={['パスワードが必要です', 'パスワードは6文字以上である必要があります']}
 					/>
 					<Button
 						type='submit'
@@ -130,6 +129,7 @@ export default function SignUp() {
 						に戻ってください
 					</Typography>
 				</ValidatorForm>
+				
 			</div>
 		</Container>
 	);
