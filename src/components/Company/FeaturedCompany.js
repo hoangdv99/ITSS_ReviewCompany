@@ -5,6 +5,8 @@ import {Typography, Grid, Card, CardActionArea, CardContent, CardMedia} from '@m
 import GradeIcon from "@material-ui/icons/Grade";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import { Link } from 'react-router-dom';
+import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
+import BusinessIcon from "@material-ui/icons/Business";
 
 const useStyles = makeStyles({
   card: {
@@ -30,7 +32,15 @@ const useStyles = makeStyles({
     marginTop: 10,
     marginBottom: 10,
     width: window.innerWidth * 0.9
-  }
+  },
+  companyInfo__location: {
+    display: 'flex',
+
+  },
+  companyInfo__type: {
+    display: 'flex',
+
+  },
 });
 export default function FeaturedCompany(props) {
   const classes = useStyles();
@@ -68,12 +78,18 @@ export default function FeaturedCompany(props) {
                 )
               )}
               {resetStar()}
-              <Typography variant="subtitle1" color="textSecondary">
-                {company.type}
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                {company.address}
-              </Typography>
+              <div className={classes.companyInfo__type}>
+                <WorkOutlineIcon />
+                <Typography variant='subtitle1' color='textSecondary'>
+                  {company.type}
+                </Typography>
+              </div>
+              <div className={classes.companyInfo__location}>
+                <BusinessIcon />
+                <Typography variant='subtitle1' color='textSecondary'>
+                  {company.address}
+                </Typography>
+              </div>
             </CardContent>
           </CardActionArea>
       </Card>
