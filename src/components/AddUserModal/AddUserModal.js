@@ -1,9 +1,10 @@
-import { Backdrop, Button, Fade, Modal, TextField } from '@material-ui/core';
+import {Backdrop, Button, Fade, Modal, Snackbar, TextField} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/AddCircleOutline';
 import React, { useState } from 'react';
 import { createNewUser } from '../../config/firebase';
 import './AddUserModal.css';
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
 	modal: {
@@ -44,7 +45,7 @@ function AddUserModal({ users, setUsers }) {
 	const [email, setEmail] = useState('');
 	const [pass, setPass] = useState('');
 	const [error, setError] = useState('');
-
+	const [openSnackBar, setOpenSnackBar] = React.useState(false);
 	function handleOpen() {
 		setOpen(true);
 	}
@@ -66,16 +67,32 @@ function AddUserModal({ users, setUsers }) {
 				await createNewUser({ name, email, pass });
 				setUsers([...users, { name, email, pass }]);
 				handleClose();
+				setOpenSnackBar(true);
 			} catch (err) {
 				if (err) {
 					setError(err.message);
 				}
 			}
 		}
-	}
 
+	}
+	const handleCloseSnackBar = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpenSnackBar(false);
+	};
 	return (
 		<div>
+			<Snackbar
+				open={openSnackBar}
+				autoHideDuration={2000}
+				onClose={handleCloseSnackBar}
+			>
+				<Alert onClose={handleCloseSnackBar} severity='success'>
+					管理者の追加に成功しました。
+				</Alert>
+			</Snackbar>
 			<Button
 				variant='contained'
 				color='primary'

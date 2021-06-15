@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DoneIcon from '@material-ui/icons/Done';
@@ -19,6 +19,7 @@ import { firestore } from '../../config/firebase';
 import Alert from '@material-ui/lab/Alert';
 import CreateIcon from '@material-ui/icons/Create';
 import moment from 'moment';
+import CompanyInfo from "./CompanyDetail/CompanyInfo";
 const useStyles = makeStyles((theme) => ({
 	modalStyle: {
 		position: 'absolute',
@@ -58,6 +59,8 @@ export default function ModalReview({
 	reviews,
 	setReviews,
 	setCompany,
+	reload,
+	setReload
 }) {
 	const classes = useStyles();
 	const [reviewCompany, setReviewCompany] = useState({
@@ -76,6 +79,9 @@ export default function ModalReview({
 	const handleOpen = () => {
 		setOpen(true);
 	};
+	useEffect(()=>{
+
+	},[])
 	const handleClose = () => {
 		setReviewCompany({
 			companyId: company.id,
@@ -122,7 +128,7 @@ export default function ModalReview({
 		}
 	};
 	const handleSubmit = async () => {
-		addReview({ item: reviewCompany });
+		await addReview({ item: reviewCompany });
 		updateCompanyRating();
 		setCompany({
 			...company,
@@ -140,6 +146,7 @@ export default function ModalReview({
 		});
 		setOpen(false);
 		setOpenSnackBar(true);
+		setReload(!reload);
 	};
 	const onValidate = () => {
 		setError('');

@@ -69,7 +69,7 @@ export default function Company(props) {
 				>
 					<CardMedia
 						className={classes.cardMedia}
-						image={company.logo !== '' ? company.logo : 'sample-logo.png'}
+						image={company.logo !== '' ? company.logo : 'https://bitly.com.vn/epr4wg'}
 						title={company.name + '-text'}
 					/>
 					<CardContent className={classes.companyDetails}>
@@ -104,7 +104,8 @@ export default function Company(props) {
 					<Button
 						variant='contained'
 						color='secondary'
-						size='small'
+						size='normal'
+						style={{width:100}}
 						onClick={() => handleRemove(company)}
 					>
 						<RemoveIcon />

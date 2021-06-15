@@ -53,8 +53,8 @@ export default function FeaturedCompany(props) {
         <CardActionArea component="a" className={classes.cardActionArea}>
           <CardMedia
             className={classes.cardMedia}
-            image={company.logo !== "" ? company.logo : "sample-logo.png"}
-            title={company.name + "-text"} />       
+            image={company.logo !== "" ? company.logo : "https://bitly.com.vn/epr4wg"}
+            title={company.name + "-text"} />
             <CardContent className={classes.companyDetails}>
               <Link to={linkParam} style={{ textDecoration: 'none', color: '#1188b8' }}>
                 <Typography className={classes.title} component="h2" variant="h5">

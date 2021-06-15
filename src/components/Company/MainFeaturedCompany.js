@@ -54,14 +54,15 @@ export default function MainFeaturedCompany(props) {
 				<Grid item md={6}>
 					<div className={classes.mainFeaturedPostContent}>
 						<Typography
-							component='h1'
+							component='h2'
 							variant='h3'
 							color='inherit'
 							gutterBottom
+						    style={{marginTop:100}}
 						>
 							給与、福利厚生、人事、採用、上司、仕事などのリビュー
 						</Typography>
-						<Typography variant='h5' color='inherit' paragraph>
+						<Typography style={{color:'transparent'}} variant='h5' color='inherit' paragraph>
 							{post.description}
 						</Typography>
 					</div>
