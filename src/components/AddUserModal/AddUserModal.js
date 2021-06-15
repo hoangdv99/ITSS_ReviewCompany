@@ -55,13 +55,21 @@ function AddUserModal({ users, setUsers }) {
 	}
 
 	async function handleAdd() {
-		try {
-			await createNewUser({ name, email, pass });
-			setUsers([...users, { name, email, pass }]);
-			handleClose();
-		} catch (err) {
-			if (err) {
-				setError(err.message);
+		if (name === '') {
+			setError('名前を入力してください。');
+		} else if (email === '') {
+			setError('メールアドレスを入力してください。');
+		} else if (pass === '') {
+			setError('パスワードを入力してください。');
+		} else {
+			try {
+				await createNewUser({ name, email, pass });
+				setUsers([...users, { name, email, pass }]);
+				handleClose();
+			} catch (err) {
+				if (err) {
+					setError(err.message);
+				}
 			}
 		}
 	}
