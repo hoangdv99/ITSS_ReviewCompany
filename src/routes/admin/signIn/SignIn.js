@@ -47,7 +47,7 @@ export default function SignUp() {
 		  setState({});
 		};
 	}, []);
-
+	
 	function handleChange(evt) {
 		const value = evt.target.value;
 		setState({
