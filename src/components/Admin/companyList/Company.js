@@ -104,7 +104,7 @@ export default function Company(props) {
 					<Button
 						variant='contained'
 						color='secondary'
-						size='small'
+						style={{width: 50}}
 						onClick={() => handleRemove(company)}
 					>
 						<RemoveIcon />
