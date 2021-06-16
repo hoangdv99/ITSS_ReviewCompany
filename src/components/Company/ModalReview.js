@@ -200,9 +200,9 @@ export default function ModalReview({
 							className={classes.formInput}
 							onChange={handleChange}
 						/>
-						<Typography>仕事</Typography>
+						<Typography>役職</Typography>
 						<Input
-							placeholder='仕事'
+							placeholder='役職'
 							value={reviewCompany.address}
 							name='position'
 							id='position'
