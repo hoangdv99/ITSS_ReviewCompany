@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DoneIcon from '@material-ui/icons/Done';
@@ -19,7 +19,7 @@ import { firestore } from '../../config/firebase';
 import Alert from '@material-ui/lab/Alert';
 import CreateIcon from '@material-ui/icons/Create';
 import moment from 'moment';
-import CompanyInfo from "./CompanyDetail/CompanyInfo";
+import CompanyInfo from './CompanyDetail/CompanyInfo';
 const useStyles = makeStyles((theme) => ({
 	modalStyle: {
 		position: 'absolute',
@@ -60,7 +60,7 @@ export default function ModalReview({
 	setReviews,
 	setCompany,
 	reload,
-	setReload
+	setReload,
 }) {
 	const classes = useStyles();
 	const [reviewCompany, setReviewCompany] = useState({
@@ -79,9 +79,7 @@ export default function ModalReview({
 	const handleOpen = () => {
 		setOpen(true);
 	};
-	useEffect(()=>{
-
-	},[])
+	useEffect(() => {}, []);
 	const handleClose = () => {
 		setReviewCompany({
 			companyId: company.id,
@@ -152,7 +150,7 @@ export default function ModalReview({
 		setError('');
 		console.log(company);
 		if (!reviewCompany.reviewer) {
-			setError('リビューアを入力してください。');
+			setError('レビューアを入力してください。');
 		} else if (!reviewCompany.text) {
 			setError('内容を入力してください。');
 		} else if (!reviewCompany.rating) {
@@ -169,7 +167,7 @@ export default function ModalReview({
 				onClose={handleCloseSnackBar}
 			>
 				<Alert onClose={handleCloseSnackBar} severity='success'>
-					リビューの追加に成功しました。
+					レビューの追加に成功しました。
 				</Alert>
 			</Snackbar>
 			<Button
@@ -181,7 +179,7 @@ export default function ModalReview({
 				startIcon={<CreateIcon />}
 				onClick={handleOpen}
 			>
-				リビュー追加
+				レビュー追加
 			</Button>
 			<Modal open={open} onClose={handleClose}>
 				<Paper className={classes.modalStyle}>
@@ -190,12 +188,12 @@ export default function ModalReview({
 						variant='h5'
 						className={classes.modalTitle}
 					>
-						リビュー追加
+						レビュー追加
 					</Typography>
 					<form className={classes.modalForm}>
-						<Typography>リビューア</Typography>
+						<Typography>レビューア</Typography>
 						<Input
-							placeholder='リビューア'
+							placeholder='レビューア'
 							value={reviewCompany.reviewer}
 							name='reviewer'
 							id='reviewer'
