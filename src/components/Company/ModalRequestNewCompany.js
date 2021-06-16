@@ -80,9 +80,6 @@ export default function ModalRequestNewCompany(props) {
 	const handleChangeLogo = async (event) => {
 		setFileUpload(event.target.files[0]);
 	};
-	const handleClick = () => {
-		setOpenSnackBar(true);
-	};
 
 	const handleCloseSnackBar = (event, reason) => {
 		if (reason === 'clickaway') {
@@ -92,8 +89,7 @@ export default function ModalRequestNewCompany(props) {
 	};
 	const handleSumit = async () => {
 		const urlLogo = fileUpload && (await uploadImage(fileUpload));
-		console.log(urlLogo);
-		if (urlLogo === '') {
+		if (urlLogo === "") {
 		} else {
 			setCompany({
 				...company,

@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography, Grid } from '@material-ui/core';
+import coverApp from '../../images/cover.png';
 
 const useStyles = makeStyles((theme) => ({
 	mainFeaturedPost: {
@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.grey[800],
 		color: theme.palette.common.white,
 		marginBottom: theme.spacing(4),
-		backgroundImage: 'url(cover.png)',
+		backgroundImage: `url(${coverApp})`,
 		backgroundSize: 'cover',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
@@ -33,20 +33,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function MainFeaturedCompany(props) {
+export default function MainFeaturedCompany() {
 	const classes = useStyles();
-	const { post } = props;
 
 	return (
-		<Paper
-			className={classes.mainFeaturedPost}
-			style={{ backgroundImage: `url(${post.image})` }}
-		>
+		<Paper className={classes.mainFeaturedPost}>
 			{
-				<img
-					style={{ display: 'none' }}
-					src={post.image}
-					alt={post.imageText}
+				<img style={{ display: 'none' }}
 				/>
 			}
 			<div className={classes.overlay} />
@@ -58,17 +51,9 @@ export default function MainFeaturedCompany(props) {
 							variant='h3'
 							color='inherit'
 							gutterBottom
-							style={{ marginTop: 100 }}
+							style={{ marginTop: 100, marginBottom:100 }}
 						>
 							給与、福利厚生、人事、採用、上司、仕事などのレビュー
-						</Typography>
-						<Typography
-							style={{ color: 'transparent' }}
-							variant='h5'
-							color='inherit'
-							paragraph
-						>
-							{post.description}
 						</Typography>
 					</div>
 				</Grid>
@@ -77,6 +62,4 @@ export default function MainFeaturedCompany(props) {
 	);
 }
 
-MainFeaturedCompany.propTypes = {
-	post: PropTypes.object,
-};
+

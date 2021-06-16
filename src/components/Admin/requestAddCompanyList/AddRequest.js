@@ -14,6 +14,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 import BusinessIcon from '@material-ui/icons/Business';
+import defaultLogo from '../../../images/sample-logo.png';
 
 const useStyles = makeStyles({
 	center: {
@@ -71,9 +72,7 @@ export default function AddRequest({ companies, handleAccept, handleReject }) {
 							<CardMedia
 								className={classes.cardMedia}
 								image={
-									company.logo !== ''
-										? company.logo
-										: 'no_imega.png'
+									company.logo !== "" ? company.logo : defaultLogo
 								}
 								title={company.name + '-text'}
 							/>

@@ -9,7 +9,7 @@ import Footer from '../../../components/Company/Footer';
 import { useAuth } from '../../../contexts/AuthContext';
 import useCoStorage from '../../../hooks/coStorage';
 import Search from '../../../components/Company/Search';
-import Alert from "@material-ui/lab/Alert";
+import defaultLogo from '../../../images/sample-logo.png';
 
 const useStyles = makeStyles((theme) => ({
 	mainGrid: {
@@ -44,9 +44,9 @@ export default function CompanyList() {
 		name: '',
 		address: '',
 		site: '',
-		type: 'others',
+		type: 'その他',
 		rating: 0,
-		logo: 'https://bitly.com.vn/epr4wg',
+		logo: defaultLogo,
 		is_active: 1,
 		totalReview: 0,
 	};

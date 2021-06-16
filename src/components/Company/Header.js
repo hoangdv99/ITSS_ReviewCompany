@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import {Toolbar, Button, Typography} from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import useCoStorage from "../../hooks/coStorage";
 import ModalRequestNewCompany from "./ModalRequestNewCompany";
 import { useAuth } from "../../contexts/AuthContext";
+import defaultLogo from '../../images/sample-logo.png';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -31,12 +31,7 @@ export default function Header(props) {
   const {currentUser} = useAuth();
   const classes = useStyles();
   const { sections, title } = props;
-  const history = useHistory();
   const [companies, addCompany, updateCompany, removeCompany] = useCoStorage();
-
-  function handleRedirect() {
-    history.push("/admin/admin-list");
-  }
 
   const company = {
     name: "",
@@ -45,7 +40,7 @@ export default function Header(props) {
     type: "",
     rating: 0,
     totalReview: 0,
-    logo: "https://bitly.com.vn/i76yfb",
+    logo: defaultLogo,
     is_active: 0,
   };
 
@@ -66,9 +61,6 @@ export default function Header(props) {
         >
           良いカンパ
         </Typography>
-        {/* <IconButton>
-                    <SearchIcon />
-                </IconButton> */}
         <ModalRequestNewCompany
           company={company}
           title="New"

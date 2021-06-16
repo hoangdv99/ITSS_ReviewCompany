@@ -7,7 +7,7 @@ function useCoStorage() {
     useEffect(() => {
         getItems();
         getItemsActive();
-;    }, []);
+    }, []);
 
     const getItems = async () => {
         const _items = await getCompanies();
@@ -26,17 +26,19 @@ function useCoStorage() {
     const updateItem = async (item) => {
         await updateCompany(item);
         const _items = await getCompanies();
+        const _itemsIsActive = await getCompaniesActive();
         setItems(_items);
-        setItemsActive(_items);
+        setItemsActive(_itemsIsActive);
     }
 
     const removeItem = async (item) => {
        await removeCompany(item);
        const _items = items.filter((x) => x.id !== item.id);
        setItems(_items);
-        setItemsActive(_items);
+       const _itemsIsActive = await getCompaniesActive();
+       setItemsActive(_itemsIsActive);
     }
-    return [items, addItem, updateItem, removeItem,itemsActive];
+    return [items, addItem, updateItem, removeItem, itemsActive];
 }
 
 export default useCoStorage;
