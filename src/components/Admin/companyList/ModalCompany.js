@@ -82,6 +82,7 @@ export default function ModalCompany(props) {
 	const handleClose = () => {
 		setOpen(false);
 		setError('');
+		setCompany(props.company);
 	};
 
 	const handleChange = (event) => {
@@ -129,6 +130,7 @@ export default function ModalCompany(props) {
 				props.onAddSubmit(company);
 				setCompany(initCompany);
 				setOpen(false);
+				setOpenSnackBar(true);
 			}
 		} else {
 			if (company.name === "") {
@@ -137,10 +139,10 @@ export default function ModalCompany(props) {
 				props.onUpdate(company);
 				setCompany(props.company);
 				setOpen(false);
+				setOpenSnackBar(true);
 				setError('');
 			}
 		}
-		setOpenSnackBar(true);
 	};
 	const handleCloseSnackBar = (event, reason) => {
 		if (reason === 'clickaway') {
