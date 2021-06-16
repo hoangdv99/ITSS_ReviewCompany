@@ -81,6 +81,7 @@ export default function ModalCompany(props) {
 
 	const handleClose = () => {
 		setOpen(false);
+		setError('');
 	};
 
 	const handleChange = (event) => {
@@ -134,8 +135,9 @@ export default function ModalCompany(props) {
 				setError('企業名を入力してください。');
 			} else {
 				props.onUpdate(company);
-				setCompany(company);
+				setCompany(props.company);
 				setOpen(false);
+				setError('');
 			}
 		}
 		setOpenSnackBar(true);

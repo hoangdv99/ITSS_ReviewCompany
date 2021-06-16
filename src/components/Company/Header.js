@@ -37,7 +37,7 @@ export default function Header(props) {
     name: "",
     address: "",
     site: "",
-    type: "",
+    type: "その他",
     rating: 0,
     totalReview: 0,
     logo: defaultLogo,
