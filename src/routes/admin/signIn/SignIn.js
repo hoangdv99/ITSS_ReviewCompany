@@ -93,7 +93,7 @@ export default function SignUp() {
 						margin='normal'
 						required
 						fullWidth
-						label='パスワード'
+						label='メールアドレス'
 						name="email"
 						value={state.email}
 						onChange={handleChange}

@@ -15,14 +15,14 @@ import StarOutlineIcon from '@material-ui/icons/StarOutline';
 import RemoveIcon from '@material-ui/icons/DeleteOutline';
 import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 import BusinessIcon from '@material-ui/icons/Business';
-
+import LanguageIcon from '@material-ui/icons/Language';
 import ModalCompany from './ModalCompany';
 import defaultLogo from '../../../images/sample-logo.png';
 
 const useStyles = makeStyles({
 	card: {
 		display: 'flex',
-		height: 140,
+		height: 'auto',
 	},
 	cardActionArea: {
 		display: 'flex',
@@ -50,6 +50,9 @@ const useStyles = makeStyles({
 	companyInfo__type: {
 		display: 'flex',
 
+	},
+	companyInfo__site: {
+		display: 'flex',
 	},
 });
 
@@ -103,16 +106,22 @@ export default function Company(props) {
 						)}
 						{resetStar()}
 						<div className={classes.companyInfo__type}>
-									<WorkOutlineIcon />
-						<Typography variant='subtitle1' color='textSecondary'>
-							{company.type}
-						</Typography>
+							<WorkOutlineIcon />
+							<Typography variant='subtitle1' color='textSecondary'>
+								{company.type}
+							</Typography>
+						</div>
+						<div className={classes.companyInfo__site}>
+							<LanguageIcon />
+							<a href={company.site} target="_blank" style={{ fontSize: 16, color: '#34a8eb' }}>
+								{company.site}
+							</a>
 						</div>
 						<div className={classes.companyInfo__location}>
-									<BusinessIcon />
-						<Typography variant='subtitle1' color='textSecondary'>
-							{company.address}
-						</Typography>
+							<BusinessIcon />
+							<Typography variant='subtitle1' color='textSecondary'>
+								{company.address}
+							</Typography>
 						</div>
 					</CardContent>
 				</CardActionArea>
@@ -128,7 +137,7 @@ export default function Company(props) {
 						variant='contained'
 						color='secondary'
 						size='small'
-						style={{width:100}}
+						style={{ width: 100 }}
 						onClick={() => handleRemove(company)}
 					>
 						<RemoveIcon />

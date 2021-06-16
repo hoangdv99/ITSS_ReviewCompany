@@ -15,6 +15,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 import BusinessIcon from '@material-ui/icons/Business';
 import defaultLogo from '../../../images/sample-logo.png';
+import LanguageIcon from '@material-ui/icons/Language';
 import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
 	},
 	card: {
 		display: 'flex',
-		height: 140,
+		height: 'auto'
 	},
 	cardActionArea: {
 		display: 'flex',
@@ -52,6 +53,9 @@ const useStyles = makeStyles({
 	companyInfo__type: {
 		display: 'flex',
 
+	},
+	companyInfo__site: {
+		display: 'flex',
 	},
 });
 export default function AddRequest({ companies, handleAccept, handleReject }) {
@@ -97,6 +101,12 @@ export default function AddRequest({ companies, handleAccept, handleReject }) {
 									<Typography variant='subtitle1' color='textSecondary'>
 										{company.type}
 									</Typography>
+								</div>
+								<div className={classes.companyInfo__site}>
+									<LanguageIcon />
+									<a href={company.site} target="_blank" style={{ fontSize: 16, color: '#34a8eb' }}>
+										{company.site}
+									</a>
 								</div>
 								<div className={classes.companyInfo__location}>
 									<BusinessIcon />
