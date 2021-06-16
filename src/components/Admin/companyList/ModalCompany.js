@@ -15,7 +15,7 @@ import {
 	Select,
 	MenuItem,
 	CardActions,
-	CardMedia,
+	CardMedia, Container, Snackbar,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
@@ -61,7 +61,7 @@ const initCompany = {
 	site: '',
 	type: 'others',
 	rating: 0,
-	logo: 'sample-logo.png',
+	logo: 'https://bitly.com.vn/epr4wg',
 	is_active: 1,
 	totalReview: 0,
 };
@@ -71,7 +71,7 @@ export default function ModalCompany(props) {
 	const [company, setCompany] = useState(props.company);
 	const [open, setOpen] = React.useState(false);
 	const [error, setError] = useState('');
-
+	const [openSnackBar, setOpenSnackBar] = React.useState(false);
 	const handleOpen = () => {
 		setOpen(true);
 	};
@@ -136,14 +136,30 @@ export default function ModalCompany(props) {
 				setOpen(false);
 			}
 		}
+		setOpenSnackBar(true);
 	};
-
+	const handleCloseSnackBar = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpenSnackBar(false);
+	};
 	return (
 		<div>
+			<Snackbar
+				open={openSnackBar}
+				autoHideDuration={2000}
+				onClose={handleCloseSnackBar}
+			>
+				<Alert onClose={handleCloseSnackBar} severity='success'>
+					企業の追加に成功しました。
+				</Alert>
+			</Snackbar>
 			<Button
 				variant='contained'
 				color='primary'
 				aria-haspopup='true'
+				style={props.title !== 'New' ? {width:100}:{width:120}}
 				onClick={handleOpen}
 			>
 				{props.title !== 'New' ? <ModifyIcon /> : <AddIcon />}
@@ -227,7 +243,7 @@ export default function ModalCompany(props) {
 										<CardMedia
 											className={classes.companyLogo}
 											image={
-												company.logo !== '' ? company.logo : 'sample-logo.png'
+												company.logo !== '' ? company.logo : 'https://bitly.com.vn/epr4wg'
 											}
 											title={company.name + '-text'}
 										/>
@@ -257,6 +273,7 @@ export default function ModalCompany(props) {
 									variant='contained'
 									color='secondary'
 									size='small'
+
 									onClick={handleClose}
 								>
 									<CancleIcon />

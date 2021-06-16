@@ -9,6 +9,7 @@ import Footer from '../../../components/Company/Footer';
 import { useAuth } from '../../../contexts/AuthContext';
 import useCoStorage from '../../../hooks/coStorage';
 import Search from '../../../components/Company/Search';
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
 	mainGrid: {
@@ -45,7 +46,7 @@ export default function CompanyList() {
 		site: '',
 		type: 'others',
 		rating: 0,
-		logo: 'sample-logo.png',
+		logo: 'https://bitly.com.vn/epr4wg',
 		is_active: 1,
 		totalReview: 0,
 	};
@@ -98,7 +99,6 @@ export default function CompanyList() {
 		});
 		return check;
 	};
-
 	return (
 		<React.Fragment>
 			<CssBaseline />

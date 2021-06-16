@@ -13,6 +13,8 @@ import {
 import GradeIcon from '@material-ui/icons/Grade';
 import StarOutlineIcon from '@material-ui/icons/StarOutline';
 import RemoveIcon from '@material-ui/icons/DeleteOutline';
+import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
+import BusinessIcon from '@material-ui/icons/Business';
 
 import ModalCompany from './ModalCompany';
 
@@ -34,10 +36,19 @@ const useStyles = makeStyles({
 	title: {
 		display: 'flex',
 		paddingRight: 10,
+		marginBottom: 10,
 	},
 	oneCompany: {
 		marginTop: 10,
 		marginBottom: 10,
+	},
+	companyInfo__location: {
+		display: 'flex',
+
+	},
+	companyInfo__type: {
+		display: 'flex',
+
 	},
 });
 
@@ -69,11 +80,15 @@ export default function Company(props) {
 				>
 					<CardMedia
 						className={classes.cardMedia}
-						image={company.logo !== '' ? company.logo : 'sample-logo.png'}
+						image={company.logo !== '' ? company.logo : 'https://bitly.com.vn/epr4wg'}
 						title={company.name + '-text'}
 					/>
 					<CardContent className={classes.companyDetails}>
-						<Typography className={classes.title} component='h2' variant='h5'>
+						<Typography
+							className={classes.title}
+							component='h2'
+							variant='h5'
+							style={{ color: '#1188b8' }}>
 							{company.name}
 						</Typography>
 						{fillStar(company.rating)}
@@ -85,12 +100,18 @@ export default function Company(props) {
 							)
 						)}
 						{resetStar()}
+						<div className={classes.companyInfo__type}>
+									<WorkOutlineIcon />
 						<Typography variant='subtitle1' color='textSecondary'>
 							{company.type}
 						</Typography>
+						</div>
+						<div className={classes.companyInfo__location}>
+									<BusinessIcon />
 						<Typography variant='subtitle1' color='textSecondary'>
 							{company.address}
 						</Typography>
+						</div>
 					</CardContent>
 				</CardActionArea>
 
@@ -104,7 +125,8 @@ export default function Company(props) {
 					<Button
 						variant='contained'
 						color='secondary'
-						style={{width: 50}}
+						size='small'
+						style={{width:100}}
 						onClick={() => handleRemove(company)}
 					>
 						<RemoveIcon />

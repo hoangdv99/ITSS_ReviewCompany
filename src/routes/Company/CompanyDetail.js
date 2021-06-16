@@ -27,21 +27,22 @@ export default function CompanyDetail() {
     const { companyId } = useParams();
     const [company, setCompany] = useState(null);
     const [reviews, setReviews] = useState([]);
-
+    const [reload, setReload] = useState(false);
     useEffect(() => {
         (async () => {
             const _company = (await firestore.collection('companies').doc(companyId).get()).data()
             _company.id = companyId;
             setCompany(_company);
         })();
-    }, [companyId]);
+        console.log(1)
+    }, [companyId,reload]);
 
     return (
         <div>
             { company && (
                 <div className={classes.root}>
                     <CompanyBreadCrumbs company={company} />
-                    <CompanyInfo company={company} reviews={reviews} setReviews={setReviews} setCompany={setCompany}/>
+                    <CompanyInfo company={company} reviews={reviews} setReviews={setReviews} setCompany={setCompany} reload={reload} setReload={setReload}/>
                     <Review company={company} reviews={reviews} setReviews={setReviews} />
                 </div>
             ) }

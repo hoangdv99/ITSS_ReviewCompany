@@ -60,6 +60,7 @@ export default function ModalRequestNewCompany(props) {
 	const [openSnackBar, setOpenSnackBar] = React.useState(false);
 	const [error, setError] = React.useState('');
 	const [fileUpload, setFileUpload] = React.useState('');
+
 	const handleOpen = () => {
 		setOpen(true);
 	};
@@ -87,7 +88,6 @@ export default function ModalRequestNewCompany(props) {
 		if (reason === 'clickaway') {
 			return;
 		}
-
 		setOpenSnackBar(false);
 	};
 	const handleSumit = async () => {
