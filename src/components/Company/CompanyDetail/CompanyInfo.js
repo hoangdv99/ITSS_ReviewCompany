@@ -5,6 +5,7 @@ import Rating from '@material-ui/lab/Rating';
 import BusinessIcon from '@material-ui/icons/Business';
 import ModalReview from "../ModalReview";
 import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
+import defaultLogo from '../../../images/sample-logo.png';
 
 const useStyles = makeStyles({
     companyInfo__logo: {
@@ -58,7 +59,11 @@ export default function CompanyInfo({ company, reviews, setReviews, setCompany,r
     return (
         <div className={classes.companyInfoCompanyPage}>
             <div className={classes.companyInfo}>
-                <img src={company.logo} className={classes.companyInfo__logo} alt="logo" />
+                <img 
+                    src={company.logo !== "" ? company.logo : defaultLogo} 
+                    className={classes.companyInfo__logo} 
+                    alt="logo" 
+                />
                 <div className={classes.companyInfo__detail}>
                     <div className={classes.companyInfo__name__rating}>
                         <h2 style={{color: '#1188b8'}} className={classes.companyInfo__name}>{company.name}</h2>

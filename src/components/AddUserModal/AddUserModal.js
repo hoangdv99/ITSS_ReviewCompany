@@ -68,6 +68,7 @@ function AddUserModal({ users, setUsers }) {
 				setUsers([...users, { name, email, pass }]);
 				handleClose();
 				setOpenSnackBar(true);
+				setError('');
 			} catch (err) {
 				if (err) {
 					setError(err.message);
@@ -117,6 +118,9 @@ function AddUserModal({ users, setUsers }) {
 				<Fade in={open}>
 					<div className={classes.paper}>
 						<h2>管理者追加</h2>
+						{error !== '' ? <Alert variant='filled' severity='error'>
+							{error}
+						</Alert> : ''}
 						<form className={classes.root} noValidate autoComplete='off'>
 							<TextField
 								variant='outlined'
@@ -152,7 +156,7 @@ function AddUserModal({ users, setUsers }) {
 								autoComplete='current-password'
 								onChange={(e) => setPass(e.target.value)}
 							/>
-							{error !== '' ? <p className='error'>{error}</p> : ''}
+
 							<div className={classes.buttonGroup}>
 								<Button
 									variant='contained'

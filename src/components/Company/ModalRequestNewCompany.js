@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DoneIcon from '@material-ui/icons/Done';
@@ -13,11 +13,12 @@ import {
 	Select,
 	MenuItem,
 	CardActions,
-	Snackbar,
+	Snackbar, CardMedia,
 } from '@material-ui/core';
 import { uploadImage } from '../../config/firebase';
 import Alert from '@material-ui/lab/Alert';
 import useCoStorage from '../../hooks/coStorage';
+import defaultLogo from "../../images/sample-logo.png";
 const useStyles = makeStyles((theme) => ({
 	modalStyle: {
 		position: 'absolute',
@@ -58,9 +59,9 @@ export default function ModalRequestNewCompany(props) {
 	const [company, setCompany] = useState(props.company);
 	const [open, setOpen] = React.useState(false);
 	const [openSnackBar, setOpenSnackBar] = React.useState(false);
+	const [reload, setReload] = React.useState(false);
 	const [error, setError] = React.useState('');
 	const [fileUpload, setFileUpload] = React.useState('');
-
 	const handleOpen = () => {
 		setOpen(true);
 	};
@@ -68,6 +69,7 @@ export default function ModalRequestNewCompany(props) {
 	const handleClose = () => {
 		setCompany(props.company);
 		setOpen(false);
+		setError('');
 	};
 
 	const handleChange = (event) => {
@@ -80,9 +82,6 @@ export default function ModalRequestNewCompany(props) {
 	const handleChangeLogo = async (event) => {
 		setFileUpload(event.target.files[0]);
 	};
-	const handleClick = () => {
-		setOpenSnackBar(true);
-	};
 
 	const handleCloseSnackBar = (event, reason) => {
 		if (reason === 'clickaway') {
@@ -92,8 +91,7 @@ export default function ModalRequestNewCompany(props) {
 	};
 	const handleSumit = async () => {
 		const urlLogo = fileUpload && (await uploadImage(fileUpload));
-		console.log(urlLogo);
-		if (urlLogo === '') {
+		if (urlLogo === "") {
 		} else {
 			setCompany({
 				...company,
@@ -107,6 +105,8 @@ export default function ModalRequestNewCompany(props) {
 		setCompany(props.company);
 		setOpen(false);
 		setOpenSnackBar(true);
+		setReload(!reload);
+		setError('');
 	};
 	const checkExist = (key, data) => {
 		let check = false;
@@ -159,6 +159,10 @@ export default function ModalRequestNewCompany(props) {
 					>
 						{props.title !== 'New' ? '企業編集' : '企業追加リクエスト'}
 					</Typography>
+					{error !== '' ?
+						<Alert variant='filled' severity='error'>
+							{error}
+						</Alert> : ''}
 					<form className={classes.modalForm}>
 						<Typography>企業名</Typography>
 						<Input
@@ -219,7 +223,6 @@ export default function ModalRequestNewCompany(props) {
 								/>
 							</Grid>
 						</Grid>
-						{error !== '' ? <p className='error'>{error}</p> : ''}
 						<Grid container className={classes.modalAction}>
 							<CardActions>
 								<Button

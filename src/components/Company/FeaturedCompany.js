@@ -7,6 +7,7 @@ import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import { Link } from 'react-router-dom';
 import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
 import BusinessIcon from "@material-ui/icons/Business";
+import defaultLogo from '../../images/sample-logo.png';
 
 const useStyles = makeStyles({
   card: {
@@ -63,7 +64,7 @@ export default function FeaturedCompany(props) {
         <CardActionArea component="a" className={classes.cardActionArea}>
           <CardMedia
             className={classes.cardMedia}
-            image={company.logo !== "" ? company.logo : "https://bitly.com.vn/epr4wg"}
+            image={company.logo !== "" ? company.logo : defaultLogo}
             title={company.name + "-text"} />
             <CardContent className={classes.companyDetails}>
               <Link to={linkParam} style={{ textDecoration: 'none', color: '#1188b8' }}>

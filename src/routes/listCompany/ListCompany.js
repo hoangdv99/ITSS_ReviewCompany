@@ -18,28 +18,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const sections = [
-	{ title: 'Technology', url: '#' },
-	{ title: 'Design', url: '#' },
-	{ title: 'Culture', url: '#' },
-	{ title: 'Business', url: '#' },
-	{ title: 'Politics', url: '#' },
-	{ title: 'Opinion', url: '#' },
-	{ title: 'Science', url: '#' },
-	{ title: 'Health', url: '#' },
-	{ title: 'Style', url: '#' },
-	{ title: 'Travel', url: '#' },
-];
-
-const mainFeaturedPost = {
-	title: 'Title of a longer featured blog post',
-	description:
-		"Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-	image: 'cover.png',
-	imgText: 'main image description',
-	linkText: 'Continue reading…',
-};
-
 export default function ListCompany() {
 	const classes = useStyles();
 	const limitPerPage = 5;
@@ -120,7 +98,7 @@ export default function ListCompany() {
 					<Header />
 				)}
 				<main>
-					<MainFeaturedPost post={mainFeaturedPost} />
+					<MainFeaturedPost />
 					<Search search={handleSearch} sort={handleSort} />
 					<Grid className={classes.mainGrid}>
 						<Grid>

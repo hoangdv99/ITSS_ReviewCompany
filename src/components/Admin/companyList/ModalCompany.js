@@ -15,11 +15,13 @@ import {
 	Select,
 	MenuItem,
 	CardActions,
-	CardMedia, Container, Snackbar,
+	CardMedia,
+	Snackbar,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 import { uploadImage } from '../../../config/firebase';
+import defaultLogo from '../../../images/sample-logo.png';
 
 const useStyles = makeStyles((theme) => ({
 	modalStyle: {
@@ -59,9 +61,9 @@ const initCompany = {
 	name: '',
 	address: '',
 	site: '',
-	type: 'others',
+	type: 'その他',
 	rating: 0,
-	logo: 'https://bitly.com.vn/epr4wg',
+	logo: defaultLogo,
 	is_active: 1,
 	totalReview: 0,
 };
@@ -72,12 +74,15 @@ export default function ModalCompany(props) {
 	const [open, setOpen] = React.useState(false);
 	const [error, setError] = useState('');
 	const [openSnackBar, setOpenSnackBar] = React.useState(false);
+
 	const handleOpen = () => {
 		setOpen(true);
 	};
 
 	const handleClose = () => {
 		setOpen(false);
+		setError('');
+		setCompany(props.company);
 	};
 
 	const handleChange = (event) => {
@@ -89,8 +94,7 @@ export default function ModalCompany(props) {
 
 	const handleChangeLogo = async (event) => {
 		const urlLogo = await uploadImage(event.target.files[0]);
-		console.log(urlLogo);
-		if (urlLogo === '') {
+		if (urlLogo === "") {
 			alert('Action fails!');
 			setOpen(false);
 		} else {
@@ -102,10 +106,10 @@ export default function ModalCompany(props) {
 	};
 
 	const checkAllValidate = () => {
-		if (company.name === '') {
+		if (company.name === "") {
 			setError('企業名を入力してください。');
 			return false;
-		} else if (company.site === '') {
+		} else if (company.site === "") {
 			setError('ホームページを入力してください。');
 			return false;
 		} else if (props.onCheckValidate('name', company.name)) {
@@ -126,17 +130,19 @@ export default function ModalCompany(props) {
 				props.onAddSubmit(company);
 				setCompany(initCompany);
 				setOpen(false);
+				setOpenSnackBar(true);
 			}
 		} else {
-			if (company.name === '') {
+			if (company.name === "") {
 				setError('企業名を入力してください。');
 			} else {
 				props.onUpdate(company);
-				setCompany(company);
+				setCompany(props.company);
 				setOpen(false);
+				setOpenSnackBar(true);
+				setError('');
 			}
 		}
-		setOpenSnackBar(true);
 	};
 	const handleCloseSnackBar = (event, reason) => {
 		if (reason === 'clickaway') {
@@ -243,7 +249,7 @@ export default function ModalCompany(props) {
 										<CardMedia
 											className={classes.companyLogo}
 											image={
-												company.logo !== '' ? company.logo : 'https://bitly.com.vn/epr4wg'
+												company.logo !== "" ? company.logo : defaultLogo
 											}
 											title={company.name + '-text'}
 										/>
@@ -264,7 +270,7 @@ export default function ModalCompany(props) {
 									variant='contained'
 									color='primary'
 									size='small'
-									onClick={() => handleSumit()}
+									onClick={handleSumit}
 								>
 									<DoneIcon />
 									保存
