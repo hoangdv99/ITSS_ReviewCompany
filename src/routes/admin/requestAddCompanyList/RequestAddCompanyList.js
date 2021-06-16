@@ -4,12 +4,13 @@ import {
 	CssBaseline,
 	Container,
 	Grid,
-	Typography,
+	Typography, Snackbar,
 } from '@material-ui/core';
 import AddRequest from '../../../components/Admin/requestAddCompanyList/AddRequest';
 import Header from '../../../components/Admin/Header';
 import { useAuth } from '../../../contexts/AuthContext';
 import { firestore } from '../../../config/firebase';
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
 	center: {
@@ -39,7 +40,14 @@ export default function RequestAddCompanyList() {
 	const { currentUser } = useAuth();
 	const [companies, setCompanies] = useState([]);
 	const [numberOfCompanies, setNumberOfCompanies] = useState(0);
-
+	const [openSnackBar, setOpenSnackBar] = React.useState(false);
+	const [check,setCheck] = React.useState(0);
+	const handleCloseSnackBar = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpenSnackBar(false);
+	};
 	const fetchCompanies = async () => {
 		const companiesRef = firestore.collection('companies');
 		const snapshot = await companiesRef.where('is_active', '==', 0).get();
@@ -59,7 +67,7 @@ export default function RequestAddCompanyList() {
 
 	async function handleAccept(co) {
 		try {
-			await firestore.collection('companies').doc(co.id).update({
+			firestore.collection('companies').doc(co.id).update({
 				is_active: 1,
 			})
 			const _companies = companies.filter(company => company.id !== co.id)
@@ -73,7 +81,7 @@ export default function RequestAddCompanyList() {
 
 	async function handleReject(co) {
 		try {
-			await firestore.collection('companies').doc(co.id).delete();
+			firestore.collection('companies').doc(co.id).delete();
 			const _companies = companies.filter(company => company.id !== co.id)
 			setNumberOfCompanies(numberOfCompanies - 1)
 			setCompanies(_companies)
@@ -99,7 +107,16 @@ export default function RequestAddCompanyList() {
 					</Typography>
 				</Grid>
 				)
-				: (<AddRequest className={classes.mainGrid} companies={companies} handleAccept={handleAccept} handleReject={handleReject} />)}
+				: (<AddRequest className={classes.mainGrid} companies={companies} handleAccept={handleAccept} handleReject={handleReject} setOpenSnackBar={setOpenSnackBar} setCheck={setCheck}/>)}
+				<Snackbar
+					open={openSnackBar}
+					autoHideDuration={2000}
+					onClose={handleCloseSnackBar}
+				>
+					<Alert onClose={handleCloseSnackBar} severity='success'>
+						{check == 0?"企業の追加に成功しました。":"リクエストの削除に成功しました。"}
+					</Alert>
+				</Snackbar>
 			</Container>
 		</React.Fragment>
 	);

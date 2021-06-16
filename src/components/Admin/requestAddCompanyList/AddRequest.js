@@ -58,16 +58,8 @@ const useStyles = makeStyles({
 		display: 'flex',
 	},
 });
-export default function AddRequest({ companies, handleAccept, handleReject }) {
+export default function AddRequest({ companies, handleAccept, handleReject,setOpenSnackBar,setCheck}) {
 	const classes = useStyles();
-	const [check,setCheck] = React.useState(0);
-	const [openSnackBar, setOpenSnackBar] = React.useState(false);
-	const handleCloseSnackBar = (event, reason) => {
-		if (reason === 'clickaway') {
-			return;
-		}
-		setOpenSnackBar(false);
-	};
 	return (
 		<Grid container className={classes.oneRow}>
 			{companies.map((company) => (
@@ -114,16 +106,14 @@ export default function AddRequest({ companies, handleAccept, handleReject }) {
 										{company.address}
 									</Typography>
 								</div>
-
 							</CardContent>
 						</CardActionArea>
-
 						<CardActions>
 							<IconButton
 								variant='contained'
 								color='primary'
 								fontSize='large'
-								onClick={() => {handleAccept(company);setCheck(0);setOpenSnackBar(true)}}
+								onClick={() => {handleAccept(company);setCheck(0);setOpenSnackBar(true);}}
 							>
 								<AddCircleIcon />
 							</IconButton>
@@ -131,7 +121,7 @@ export default function AddRequest({ companies, handleAccept, handleReject }) {
 								variant='contained'
 								color='secondary'
 								fontSize='large'
-								onClick={() => {handleReject(company);setCheck(1);setOpenSnackBar(true)}}
+								onClick={() => {handleReject(company);setCheck(1);setOpenSnackBar(true);}}
 							>
 								<CancelIcon />
 							</IconButton>
@@ -139,15 +129,6 @@ export default function AddRequest({ companies, handleAccept, handleReject }) {
 					</Card>
 				</Grid>
 			))}
-			<Snackbar
-				open={openSnackBar}
-				autoHideDuration={2000}
-				onClose={handleCloseSnackBar}
-			>
-				<Alert onClose={handleCloseSnackBar} severity='success'>
-					{check == 0?"企業の追加に成功しました。":"リクエストの削除に成功しました。"}
-				</Alert>
-			</Snackbar>
 		</Grid>
 	);
 }

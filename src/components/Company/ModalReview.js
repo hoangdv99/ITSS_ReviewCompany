@@ -126,9 +126,9 @@ export default function ModalReview({
 		}
 	};
 	const handleSubmit = async () => {
-		addReview({ item: reviewCompany });
+		await addReview({ item: reviewCompany });
+		await updateCompanyRating();
 		setOpen(false);
-		updateCompanyRating();
 		setCompany({
 			...company,
 			rating:
@@ -215,6 +215,7 @@ export default function ModalReview({
 							value={reviewCompany.text}
 							name='text'
 							id='text'
+							multiline={true}
 							className={classes.formInput}
 							onChange={handleChange}
 						/>
