@@ -137,7 +137,7 @@ export default function ModalCompany(props) {
 				setError('企業名を入力してください。');
 			} else {
 				props.onUpdate(company);
-				setCompany(props.company);
+				setCompany(company);
 				setOpen(false);
 				setOpenSnackBar(true);
 				setError('');

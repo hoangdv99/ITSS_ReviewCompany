@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline, Container, Grid } from '@material-ui/core';
+import {CssBaseline, Container, Grid, Snackbar} from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import AdminHeader from '../../../components/Admin/Header';
 import ModalCompany from '../../../components/Admin/companyList/ModalCompany';
@@ -10,6 +10,7 @@ import { useAuth } from '../../../contexts/AuthContext';
 import useCoStorage from '../../../hooks/coStorage';
 import Search from '../../../components/Company/Search';
 import defaultLogo from '../../../images/sample-logo.png';
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
 	mainGrid: {
@@ -40,6 +41,7 @@ export default function CompanyList() {
 	const [listCompany, setListCompany] = React.useState([]);
 	const [listCompanyUpdate, setListCompanyUpdate] = React.useState([]);
 	const [numberPage, setNumberPage] = React.useState(1);
+	const [openSnackBar, setOpenSnackBar] = React.useState(false);
 	const company = {
 		name: '',
 		address: '',
@@ -99,6 +101,12 @@ export default function CompanyList() {
 		});
 		return check;
 	};
+	const handleCloseSnackBar = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpenSnackBar(false);
+	};
 	return (
 		<React.Fragment>
 			<CssBaseline />
@@ -123,10 +131,11 @@ export default function CompanyList() {
 					{listCompany.length > 0 &&
 						listCompany.map((co, i) => (
 							<Company
-								key={i}
+								key={co.name}
 								company={co}
 								onUpdate={updateCompany}
 								onRemove={removeCompany}
+								setOpenSnackBar = {setOpenSnackBar}
 							/>
 						))}
 					<Pagination
@@ -137,6 +146,15 @@ export default function CompanyList() {
 						onChange={handleChangePage}
 					/>
 				</Grid>
+				<Snackbar
+					open={openSnackBar}
+					autoHideDuration={2000}
+					onClose={handleCloseSnackBar}
+				>
+					<Alert onClose={handleCloseSnackBar} severity='success'>
+						企業の削除に成功しました。
+					</Alert>
+				</Snackbar>
 			</Container>
 			<Footer title='Team 2' description='From team 2 with love' />
 		</React.Fragment>

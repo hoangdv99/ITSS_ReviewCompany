@@ -126,7 +126,8 @@ export default function ModalReview({
 		}
 	};
 	const handleSubmit = async () => {
-		await addReview({ item: reviewCompany });
+		addReview({ item: reviewCompany });
+		setOpen(false);
 		updateCompanyRating();
 		setCompany({
 			...company,
@@ -142,7 +143,6 @@ export default function ModalReview({
 			rating: '',
 			created_at: moment().format(),
 		});
-		setOpen(false);
 		setOpenSnackBar(true);
 		setReload(!reload);
 	};

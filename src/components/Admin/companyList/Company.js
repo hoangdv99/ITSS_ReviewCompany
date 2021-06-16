@@ -69,6 +69,7 @@ export default function Company(props) {
 
 	const handleRemove = async (item) => {
 		await props.onRemove(item);
+		props.setOpenSnackBar(true);
 	};
 
 	return (

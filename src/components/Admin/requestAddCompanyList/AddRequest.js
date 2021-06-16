@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
 	Typography,
@@ -8,13 +8,14 @@ import {
 	CardContent,
 	CardActions,
 	IconButton,
-	CardMedia,
+	CardMedia, Snackbar,
 } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 import BusinessIcon from '@material-ui/icons/Business';
 import defaultLogo from '../../../images/sample-logo.png';
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
 	center: {
@@ -53,10 +54,16 @@ const useStyles = makeStyles({
 
 	},
 });
-
 export default function AddRequest({ companies, handleAccept, handleReject }) {
 	const classes = useStyles();
-
+	const [check,setCheck] = React.useState(0);
+	const [openSnackBar, setOpenSnackBar] = React.useState(false);
+	const handleCloseSnackBar = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpenSnackBar(false);
+	};
 	return (
 		<Grid container className={classes.oneRow}>
 			{companies.map((company) => (
@@ -106,7 +113,7 @@ export default function AddRequest({ companies, handleAccept, handleReject }) {
 								variant='contained'
 								color='primary'
 								fontSize='large'
-								onClick={() => handleAccept(company)}
+								onClick={() => {handleAccept(company);setCheck(0);setOpenSnackBar(true)}}
 							>
 								<AddCircleIcon />
 							</IconButton>
@@ -114,7 +121,7 @@ export default function AddRequest({ companies, handleAccept, handleReject }) {
 								variant='contained'
 								color='secondary'
 								fontSize='large'
-								onClick={() => handleReject(company)}
+								onClick={() => {handleReject(company);setCheck(1);setOpenSnackBar(true)}}
 							>
 								<CancelIcon />
 							</IconButton>
@@ -122,6 +129,15 @@ export default function AddRequest({ companies, handleAccept, handleReject }) {
 					</Card>
 				</Grid>
 			))}
+			<Snackbar
+				open={openSnackBar}
+				autoHideDuration={2000}
+				onClose={handleCloseSnackBar}
+			>
+				<Alert onClose={handleCloseSnackBar} severity='success'>
+					{check == 0?"企業の追加に成功しました。":"リクエストの削除に成功しました。"}
+				</Alert>
+			</Snackbar>
 		</Grid>
 	);
 }

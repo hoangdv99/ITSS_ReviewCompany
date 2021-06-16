@@ -102,10 +102,10 @@ export default function ModalRequestNewCompany(props) {
 			...company,
 			logo: urlLogo ? urlLogo : company.logo,
 		});
-		setCompany(props.company);
 		setOpen(false);
 		setOpenSnackBar(true);
 		setReload(!reload);
+		setCompany(props.company);
 		setError('');
 	};
 	const checkExist = (key, data) => {
